@@ -22,7 +22,9 @@ import java.util.Properties;
 @Configuration
 @PropertySource({ "classpath:hibernate-config.properties" })
 @ComponentScan("com.dzmitryf.catalog")
-@EnableJpaRepositories("com.dzmitryf.catalog.dao")
+@EnableJpaRepositories(value = "com.dzmitryf.catalog.dao",
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
 public class PersistenceConfig {
 

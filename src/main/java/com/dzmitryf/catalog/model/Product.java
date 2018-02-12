@@ -1,11 +1,9 @@
 package com.dzmitryf.catalog.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
+@EntityListeners(ProductListener.class)
 @Table(name = "hbschema.product", catalog="hbschema")
 public class Product {
 
