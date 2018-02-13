@@ -1,14 +1,12 @@
 package com.dzmitryf.catalog.model.book;
 
+import com.dzmitryf.catalog.model.User;
 import com.dzmitryf.catalog.model.base.BaseEntity;
 import com.dzmitryf.catalog.model.base.Language;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="BOOKS", schema="hbschema")
@@ -23,6 +21,8 @@ public class Book extends BaseEntity {
     private Long countPages;
 
     private Language language = Language.UNDEFINED;
+
+    private Set<User> users = new HashSet<User>(0);
 
     public Book(){}
 
@@ -76,5 +76,14 @@ public class Book extends BaseEntity {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
