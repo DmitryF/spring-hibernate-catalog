@@ -50,7 +50,6 @@ public class PersistenceConfig {
     }
 
     private Properties additionalProperties(){
-
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
