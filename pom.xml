@@ -30,6 +30,9 @@
         <tomcat.http.port>8090</tomcat.http.port>
         <tomcat.project.path>/catalog</tomcat.project.path>
 
+        <!-- Jackson -->
+        <jackson.version>2.9.1</jackson.version>
+
         <!-- Maven -->
         <maven-compiler-plugin-version>3.5.1</maven-compiler-plugin-version>
         <maven-tomcat-version>2.2</maven-tomcat-version>
@@ -146,6 +149,14 @@
             <artifactId>postgresql</artifactId>
             <version>9.3-1102-jdbc41</version>
         </dependency>
+
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
 
         <!-- Servlet -->
         <dependency>
