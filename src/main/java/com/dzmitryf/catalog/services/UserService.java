@@ -5,11 +5,21 @@ import com.dzmitryf.catalog.model.book.Book;
 
 import java.util.List;
 
-public interface UserService {
+/**
+ * Interface for work with service of books.
+ */
+public interface UserService extends CrudService<User> {
 
-    User save(User user);
+    /**
+     * Retrieve user by first name
+     * @param firstName
+     * @return the user with given first name or {@literal null} if none found
+     */
+    User getUserByFirstName(String firstName);
 
-    User findUserByFirstName(String firstName);
-
+    /**
+     * Retrivies users by count books
+     * @return the users who sorted by max count of books
+     */
     List<User> getUsersByCountBooksDesc();
 }

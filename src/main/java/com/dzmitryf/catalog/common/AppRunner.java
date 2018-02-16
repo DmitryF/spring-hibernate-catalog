@@ -29,10 +29,10 @@ public class AppRunner {
 
         book1.getUsers().add(user1);
 
-        bookService.save(book1);
-        bookService.save(book2);
-        bookService.save(book3);
-        bookService.save(book4);
+        bookService.create(book1);
+        bookService.create(book2);
+        bookService.create(book3);
+        bookService.create(book4);
 
         user1.getBooks().add(book1);
         user1.getBooks().add(book2);
@@ -48,30 +48,30 @@ public class AppRunner {
         user4.getBooks().add(book3);
         user4.getBooks().add(book4);
 
-        userService.save(user1);
-        userService.save(user2);
-        userService.save(user3);
-        userService.save(user4);
+        userService.create(user1);
+        userService.create(user2);
+        userService.create(user3);
+        userService.create(user4);
 
         //findUserByFirstName
-        User findedUserByFirstName = userService.findUserByFirstName("Brad");
+        User findedUserByFirstName = userService.getUserByFirstName("Brad");
         if (findedUserByFirstName != null){
             System.out.println(findedUserByFirstName.getFirstName());
         }
 
-        //getUsersByCountBooksDesc
+        //findUsersByCountBooksDesc
         List<User> usersByCountBooks = userService.getUsersByCountBooksDesc();
         for (User user: usersByCountBooks) {
             System.out.println(user.getFirstName());
         }
 
         //findBookByName
-        Book findedBook = bookService.findBookByName("book1");
+        Book findedBook = bookService.getBookByName("book1");
         if (findedBook != null){
             System.out.println(findedBook.getName());
         }
 
-        //getBooksByCountPagesDesc
+        //findBooksByCountPagesDesc
         List<Book> booksByCountPages = bookService.getBooksByCountPagesDesc();
         for (Book book : booksByCountPages) {
             System.out.println(book.getCountPages());
