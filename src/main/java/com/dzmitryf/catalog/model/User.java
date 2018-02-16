@@ -26,6 +26,15 @@ public class User extends BaseEntity {
         setLastName(lastName);
     }
 
+    public void update(User user) {
+        super.update(user);
+        if (user != null){
+            setFirstName(user.getFirstName());
+            setLastName(user.getLastName());
+            setBooks(user.getBooks());
+        }
+    }
+
     @Column(name="FIRST_NAME", unique=false, nullable=false)
     public String getFirstName() {
         return firstName;
@@ -55,5 +64,13 @@ public class User extends BaseEntity {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + getId() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName()+
+                "]";
     }
 }

@@ -1,5 +1,7 @@
 package com.dzmitryf.catalog.model.base;
 
+import com.dzmitryf.catalog.model.User;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,6 +26,12 @@ public abstract class BaseEntity implements Serializable{
     private Date creatingDate;
 
     private Date editingDate;
+
+    public void update(BaseEntity entity){
+        if (entity != null) {
+            setId(entity.getId());
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator="simple_seq")

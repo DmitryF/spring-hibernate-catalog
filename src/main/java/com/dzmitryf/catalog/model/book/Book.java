@@ -32,6 +32,18 @@ public class Book extends BaseEntity {
         setCountPages(countPages);
     }
 
+    public void update(Book book) {
+        super.update(book);
+        if (book != null) {
+            setName(book.getName());
+            setAuthorName(book.getAuthorName());
+            setDescription(book.getDescription());
+            setCountPages(book.getCountPages());
+            setLanguage(book.getLanguage());
+            setUsers(book.getUsers());
+        }
+    }
+
     @Column(name="NAME", unique=false, nullable=false)
     public String getName() {
         return name;
@@ -85,5 +97,16 @@ public class Book extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + getId() +
+                ", name=" + getName() +
+                ", authorName=" + getAuthorName() +
+                ", description=" + getDescription() +
+                ", countPages=" + getCountPages() +
+                ", language=" + getLanguage() +
+                "]";
     }
 }
