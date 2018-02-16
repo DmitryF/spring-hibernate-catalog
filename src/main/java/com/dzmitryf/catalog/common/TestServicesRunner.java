@@ -10,7 +10,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import java.util.List;
 
-public class AppRunner {
+public class TestServicesRunner {
 
     public static void run(AnnotationConfigWebApplicationContext context){
         test(context);

@@ -17,9 +17,8 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Application hibernate configuration
+ * Application database configuration
  */
-
 @Configuration
 @PropertySource({ "classpath:hibernate-config.properties" })
 @ComponentScan({"com.dzmitryf.catalog.config",

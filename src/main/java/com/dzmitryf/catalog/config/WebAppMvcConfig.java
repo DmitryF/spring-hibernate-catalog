@@ -8,9 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "com.dzmitryf.catalog.controllers" })
-public class ApplicationConfig extends WebMvcConfigurerAdapter {
+public class WebAppMvcConfig extends WebMvcConfigurerAdapter {
 
-    public ApplicationConfig() {
+    public WebAppMvcConfig() {
         super();
     }
 }

@@ -24,7 +24,7 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
         container.addListener(new ServletContextListener() {
             @Override
             public void contextInitialized(ServletContextEvent servletContextEvent) {
-                AppRunner.run(context);
+                TestServicesRunner.run(context);
             }
 
             @Override
