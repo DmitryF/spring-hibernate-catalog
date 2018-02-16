@@ -27,28 +27,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User entity) {
         LOGGER.info("Creating a new user: {}", entity);
+        User user = new User();
         try {
-            entityManager.persist(entity);
+            user.update(entity);
+            entityManager.persist(user);
             entityManager.flush();
-            LOGGER.info("Created a new user: {}", entity);
+            LOGGER.info("Created a new user: {}", user);
         } catch (Exception e){
             LOGGER.error("Error while creating a new user: ", e);
-            return null;
         }
-        return entity;
+        return user;
     }
 
     @Override
     public User getById(Long id) {
         LOGGER.info("Finding a user by id: id={}", id);
-        User user = null;
+        User user = new User();
         try {
             user = userRepository.findOne(id);
+            LOGGER.info("Found a user : {}", user);
         } catch (Exception e) {
             LOGGER.error("Error while finding a user by id: ", e);
             return null;
         }
-        LOGGER.info("Found a user : {}", user);
         return user;
     }
 
@@ -56,8 +57,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User entity) {
         LOGGER.info("Updating a user: {}", entity);
+        User user = new User();
         try {
-            User user = userRepository.findOne(entity.getId());
+            user = userRepository.findOne(entity.getId());
             user.update(entity);
             userRepository.flush();
             LOGGER.info("Updated a user: {}", user);
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
             LOGGER.error("Error while updating a user: ", e);
             return null;
         }
-        return entity;
+        return user;
     }
 
     @Override

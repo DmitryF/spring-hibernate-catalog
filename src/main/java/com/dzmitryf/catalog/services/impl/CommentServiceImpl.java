@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,26 +31,27 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment create(Comment entity) {
         LOGGER.info("Creating a new comment: {}", entity);
+        Comment comment = new Comment();
         try {
-            entityManager.persist(entity);
+            comment.update(entity);
+            entityManager.persist(comment);
             entityManager.flush();
-            LOGGER.info("Created a new comment: {}", entity);
+            LOGGER.info("Created a new comment: {}", comment);
         } catch (Exception e){
             LOGGER.error("Error while creating a new comment: ", e);
             return null;
         }
-        return entity;
+        return comment;
     }
 
     @Override
     public Comment getById(Long id) {
         LOGGER.info("Finding a comment by id: {}", id);
-        Comment comment = null;
+        Comment comment = new Comment();
         try {
             comment = commentRepository.findOne(id);
         } catch (Exception e) {
             LOGGER.error("Error while finding a comment by id: ", e);
-            return null;
         }
         LOGGER.info("Found a comment : {}", comment);
         return comment;
@@ -59,16 +61,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment update(Comment entity) {
         LOGGER.info("Updating a book: {}", entity);
+        Comment comment = new Comment();
         try {
-            Comment currentComment = commentRepository.findOne(entity.getId());
-            currentComment.update(entity);
+            comment = commentRepository.findOne(entity.getId());
+            comment.update(entity);
             commentRepository.flush();
-            LOGGER.info("Updated a book: {}", currentComment);
+            LOGGER.info("Updated a book: {}", comment);
         } catch (Exception e){
             LOGGER.error("Error while updating a book: ", e);
-            return null;
         }
-        return entity;
+        return comment;
     }
 
     @Override
@@ -86,12 +88,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> getAllCommentsOfUser(User user) {
         LOGGER.info("Finding comments by user: {}", user);
-        List<Comment> comments = null;
+        List<Comment> comments = new ArrayList<>();
         try {
             Query query = entityManager.createNativeQuery("SELECT * FROM hbschema.comments WHERE user_id = ?1", Comment.class);
             query.setParameter(1, user.getId());
             comments = query.getResultList();
-            entityManager.flush();
             LOGGER.info("Found {} comments", comments.size());
         } catch (Exception e){
             LOGGER.error("Error while finding a comments by user: ", e);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,28 +29,28 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book create(Book entity) {
         LOGGER.info("Creating a new book: {}", entity);
+        Book book = new Book();
         try {
-            entityManager.persist(entity);
+            book.update(entity);
+            entityManager.persist(book);
             entityManager.flush();
-            LOGGER.info("Created a new book: {}", entity);
+            LOGGER.info("Created a new book: {}", book);
         } catch (Exception e){
             LOGGER.error("Error while creating a new book: ", e);
-            return null;
         }
-        return entity;
+        return book;
     }
 
     @Override
     public Book getById(Long id) {
         LOGGER.info("Finding a book by id: {}", id);
-        Book book = null;
+        Book book = new Book();
         try {
             book = bookRepository.findOne(id);
+            LOGGER.info("Found a book : {}", book);
         } catch (Exception e) {
             LOGGER.error("Error while finding a book by id: ", e);
-            return null;
         }
-        LOGGER.info("Found a book : {}", book);
         return book;
     }
 
@@ -57,16 +58,16 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book update(Book entity) {
         LOGGER.info("Updating a book: {}", entity);
+        Book book = new Book();
         try {
-            Book currentBook = bookRepository.findOne(entity.getId());
-            currentBook.update(entity);
+            book = bookRepository.findOne(entity.getId());
+            book.update(entity);
             bookRepository.flush();
-            LOGGER.info("Updated a book: {}", currentBook);
+            LOGGER.info("Updated a book: {}", book);
         } catch (Exception e){
             LOGGER.error("Error while updating a book: ", e);
-            return null;
         }
-        return entity;
+        return book;
     }
 
     @Override
@@ -97,12 +98,11 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public List<Book> getBooksByAuthorName(String authorName) {
         LOGGER.info("Finding books by author name: {}", authorName);
-        List<Book> books = null;
+        List<Book> books = new ArrayList<>();
         try {
             Query query = entityManager.createNativeQuery("SELECT * FROM hbschema.books WHERE author_name = ?1", Book.class);
             query.setParameter(1, authorName);
             books = query.getResultList();
-            entityManager.flush();
             LOGGER.info("Found {} books", books.size());
         } catch (Exception e){
             LOGGER.error("Error while finding a book by author name: ", e);
