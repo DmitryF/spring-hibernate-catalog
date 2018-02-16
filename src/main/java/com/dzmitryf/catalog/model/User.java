@@ -3,6 +3,7 @@ package com.dzmitryf.catalog.model;
 
 import com.dzmitryf.catalog.model.base.BaseEntity;
 import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.comment.Comment;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,6 +19,8 @@ public class User extends BaseEntity {
     private String lastName;
 
     private Set<Book> books = new HashSet<Book>(0);
+
+    private Set<Comment> comments = new HashSet<>(0);
 
     public User(){}
 
@@ -64,6 +67,15 @@ public class User extends BaseEntity {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
