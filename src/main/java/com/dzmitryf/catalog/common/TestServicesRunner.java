@@ -18,28 +18,23 @@ public class TestServicesRunner {
 
     private static void test(AnnotationConfigWebApplicationContext context){
 
+        BookService bookService = context.getBean(BookService.class);
+        Book book1 = bookService.create(new Book("book1", "author1", 100L));
+        Book book2 = bookService.create(new Book("book2", "author2", 90L));
+        Book book3 = bookService.create(new Book("book3", "author2", 50L));
+        Book book4 = bookService.create(new Book("book4", "author4", 110L));
+
         UserService userService = context.getBean(UserService.class);
-        User user1 = new User("Brad", "Pitt");
-        User user2 = new User("Jeckie", "Chan");
-        User user3 = new User("Petr", "Ivanov");
-        User user4 = new User("Ivan", "Petrov");
+        User user1 = userService.create(new User("Brad", "Pitt"));
+        User user2 = userService.create(new User("Jeckie", "Chan"));
+        User user3 = userService.create(new User("Petr", "Ivanov"));
+        User user4 = userService.create(new User("Ivan", "Petrov"));
 
         CommentService commentService = context.getBean(CommentService.class);
-        Comment comment1 = new Comment(user1, "commentUser1");
-        Comment comment2 = new Comment(user2, "commentUser2");
-        Comment comment3 = new Comment(user3, "commentUser3");
-        Comment comment4 = new Comment(user4, "commentUser4");
-
-        BookService bookService = context.getBean(BookService.class);
-        Book book1 = new Book("book1", "author1", 100L);
-        Book book2 = new Book("book2", "author2", 90L);
-        Book book3 = new Book("book3", "author2", 50L);
-        Book book4 = new Book("book4", "author4", 110L);
-
-        bookService.create(book1);
-        bookService.create(book2);
-        bookService.create(book3);
-        bookService.create(book4);
+        Comment comment1 = commentService.create(new Comment(user1, "commentUser1"));
+        Comment comment2 = commentService.create(new Comment(user2, "commentUser2"));
+        Comment comment3 = commentService.create(new Comment(user3, "commentUser3"));
+        Comment comment4 = commentService.create(new Comment(user4, "commentUser4"));
 
         user1.getBooks().add(book1);
         user1.getBooks().add(book2);
@@ -55,15 +50,10 @@ public class TestServicesRunner {
         user4.getBooks().add(book3);
         user4.getBooks().add(book4);
 
-        userService.create(user1);
-        userService.create(user2);
-        userService.create(user3);
-        userService.create(user4);
-
-        commentService.create(comment1);
-        commentService.create(comment2);
-        commentService.create(comment3);
-        commentService.create(comment4);
+        userService.update(user1);
+        userService.update(user2);
+        userService.update(user3);
+        userService.update(user4);
 
         //findUserByFirstName
         User findedUserByFirstName = userService.getUserByFirstName("Brad");
