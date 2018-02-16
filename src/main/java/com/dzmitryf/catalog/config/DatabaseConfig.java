@@ -30,7 +30,7 @@ import java.util.Properties;
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
-public class PersistenceConfig {
+public class DatabaseConfig {
 
     private static final String PACKAGE_MODEL = "com.dzmitryf.catalog.model";
 
