@@ -6,6 +6,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.ServletRegistration;
 
 public class MainWebAppInitializer implements WebApplicationInitializer {
@@ -15,11 +17,21 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext container) {
-        AnnotationConfigWebApplicationContext context =
-                new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.setConfigLocation(CONFIG_PATH);
 
         container.addListener(new ContextLoaderListener(context));
+        container.addListener(new ServletContextListener() {
+            @Override
+            public void contextInitialized(ServletContextEvent servletContextEvent) {
+                AppRunner.run(context);
+            }
+
+            @Override
+            public void contextDestroyed(ServletContextEvent servletContextEvent) {
+
+            }
+        });
 
         ServletRegistration.Dynamic dispatcher =
                 container.addServlet(DISPATCHER_SERVLET, new DispatcherServlet(context));

@@ -1,21 +1,22 @@
 package com.dzmitryf.catalog.common;
 
-import com.dzmitryf.catalog.config.PersistenceConfig;
 import com.dzmitryf.catalog.model.User;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.services.BookService;
 import com.dzmitryf.catalog.services.CommentService;
 import com.dzmitryf.catalog.services.UserService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import java.util.List;
 
 public class AppRunner {
 
-    public static void main(String[] args){
-        ApplicationContext context = new AnnotationConfigApplicationContext(PersistenceConfig.class);
+    public static void run(AnnotationConfigWebApplicationContext context){
+        test(context);
+    }
+
+    private static void test(AnnotationConfigWebApplicationContext context){
 
         UserService userService = context.getBean(UserService.class);
         User user1 = new User("Brad", "Pitt");
