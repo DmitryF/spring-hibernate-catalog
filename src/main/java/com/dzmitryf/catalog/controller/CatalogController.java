@@ -1,15 +1,16 @@
 package com.dzmitryf.catalog.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/catalog")
+@RequestMapping("")
 public class CatalogController {
 
-
-    @RequestMapping("/test")
+    @RequestMapping(method = RequestMethod.GET)
     public String test(){
-        return "test";
+        return "complete";
     }
 }

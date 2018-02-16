@@ -28,9 +28,12 @@
 
         <!-- Tolmcat -->
         <tomcat.http.port>8090</tomcat.http.port>
+        <tomcat.project.path>/catalog</tomcat.project.path>
 
         <!-- Maven -->
         <maven-compiler-plugin-version>3.5.1</maven-compiler-plugin-version>
+        <maven-tomcat-version>2.2</maven-tomcat-version>
+        <maven-war-plugin-version>2.2</maven-war-plugin-version>
 
     </properties>
 
@@ -52,22 +55,30 @@
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>${maven-tomcat-version}</version>
                 <configuration>
-                    <path>/</path>
+                    <path>${tomcat.project.path}</path>
                     <port>${tomcat.http.port}</port>
-                    <!--<ignorePackaging>true</ignorePackaging>-->
+                    <warFile>${project.build.directory}/${project.artifactId}-${project.version}.war</warFile>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>${maven-compiler-plugin-version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin-version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
