@@ -3,7 +3,9 @@ package com.dzmitryf.catalog.common;
 import com.dzmitryf.catalog.config.PersistenceConfig;
 import com.dzmitryf.catalog.model.User;
 import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.services.BookService;
+import com.dzmitryf.catalog.services.CommentService;
 import com.dzmitryf.catalog.services.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,13 +23,17 @@ public class AppRunner {
         User user3 = new User("Petr", "Ivanov");
         User user4 = new User("Ivan", "Petrov");
 
+        CommentService commentService = context.getBean(CommentService.class);
+        Comment comment1 = new Comment(user1, "commentUser1");
+        Comment comment2 = new Comment(user2, "commentUser2");
+        Comment comment3 = new Comment(user3, "commentUser3");
+        Comment comment4 = new Comment(user4, "commentUser4");
+
         BookService bookService = context.getBean(BookService.class);
         Book book1 = new Book("book1", "author1", 100L);
         Book book2 = new Book("book2", "author2", 90L);
         Book book3 = new Book("book3", "author2", 50L);
         Book book4 = new Book("book4", "author4", 110L);
-
-        book1.getUsers().add(user1);
 
         bookService.create(book1);
         bookService.create(book2);
@@ -53,6 +59,11 @@ public class AppRunner {
         userService.create(user3);
         userService.create(user4);
 
+        commentService.create(comment1);
+        commentService.create(comment2);
+        commentService.create(comment3);
+        commentService.create(comment4);
+
         //findUserByFirstName
         User findedUserByFirstName = userService.getUserByFirstName("Brad");
         if (findedUserByFirstName != null){
@@ -61,9 +72,7 @@ public class AppRunner {
 
         //findUsersByCountBooksDesc
         List<User> usersByCountBooks = userService.getUsersByCountBooksDesc();
-        for (User user: usersByCountBooks) {
-            System.out.println(user.getFirstName());
-        }
+        usersByCountBooks.forEach((User user) -> System.out.println(user.getFirstName()));
 
         //findBookByName
         Book findedBook = bookService.getBookByName("book1");
@@ -73,14 +82,14 @@ public class AppRunner {
 
         //findBooksByCountPagesDesc
         List<Book> booksByCountPages = bookService.getBooksByCountPagesDesc();
-        for (Book book : booksByCountPages) {
-            System.out.println(book.getCountPages());
-        }
+        booksByCountPages.forEach((Book book)-> System.out.println(book.getCountPages()));
 
         //getBooksByAuthorName
         List<Book> booksByAuthorName = bookService.getBooksByAuthorName("author2");
-        for (Book book : booksByAuthorName) {
-            System.out.println(book.getName());
-        }
+        booksByAuthorName.forEach((Book book)->System.out.println(book.getName()));
+
+        //commentsByUser
+        List<Comment> commentsByUser = commentService.getAllCommentsOfUser(user1);
+        commentsByUser.forEach((Comment comment)->System.out.println(comment.getMessage()));
     }
 }
