@@ -101,7 +101,7 @@ public class BookServiceImpl implements BookService {
         try {
             Query query = entityManager.createNativeQuery("SELECT * FROM hbschema.books WHERE author_name = ?1", Book.class);
             query.setParameter(1, authorName);
-            books = (List<Book>) query.getResultList();
+            books = query.getResultList();
             entityManager.flush();
             LOGGER.info("Found {} books", books.size());
         } catch (Exception e){

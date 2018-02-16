@@ -17,7 +17,7 @@ public interface BookService extends CrudService<Book> {
     Book getBookByName(String name);
 
     /**
-     * Retrivies books with max count pages
+     * Retrieves books with max count pages
      * @return the books that sorted by descending
      */
     List<Book> getBooksByCountPagesDesc();

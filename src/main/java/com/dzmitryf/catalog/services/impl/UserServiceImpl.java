@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public User create(User entity) {
         LOGGER.info("Creating a new user: {}", entity);
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public User update(User entity) {
         LOGGER.info("Updating a user: {}", entity);

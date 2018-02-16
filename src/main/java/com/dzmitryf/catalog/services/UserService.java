@@ -18,7 +18,7 @@ public interface UserService extends CrudService<User> {
     User getUserByFirstName(String firstName);
 
     /**
-     * Retrivies users by count books
+     * Retrieves users by count books
      * @return the users who sorted by max count of books
      */
     List<User> getUsersByCountBooksDesc();
