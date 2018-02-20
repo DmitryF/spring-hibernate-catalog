@@ -1,7 +1,6 @@
 package com.dzmitryf.catalog.services;
 
-import com.dzmitryf.catalog.model.User;
-import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.user.User;
 
 import java.util.List;
 

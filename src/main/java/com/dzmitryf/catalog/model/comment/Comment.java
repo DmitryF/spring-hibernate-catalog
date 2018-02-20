@@ -1,6 +1,6 @@
 package com.dzmitryf.catalog.model.comment;
 
-import com.dzmitryf.catalog.model.User;
+import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.base.BaseEntity;
 
 import javax.persistence.*;

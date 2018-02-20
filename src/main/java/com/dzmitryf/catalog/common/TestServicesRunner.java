@@ -1,6 +1,6 @@
 package com.dzmitryf.catalog.common;
 
-import com.dzmitryf.catalog.model.User;
+import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.services.BookService;
@@ -29,6 +29,14 @@ public class TestServicesRunner {
         User user2 = userService.create(new User("Jeckie", "Chan"));
         User user3 = userService.create(new User("Petr", "Ivanov"));
         User user4 = userService.create(new User("Ivan", "Petrov"));
+
+        /*
+         UserService userService = context.getBean(UserService.class);
+        User user1 = userService.create(new User("username1", "1234", new UserRole(SecurityRole.ROLE_GUEST), "Brad", "Pitt"));
+        User user2 = userService.create(new User("username2", "1234", new UserRole(SecurityRole.ROLE_USER), "Jeckie", "Chan"));
+        User user3 = userService.create(new User("username3", "1234", new UserRole(SecurityRole.ROLE_ADMIN), "Petr", "Ivanov"));
+        User user4 = userService.create(new User("username4", "1234", new UserRole(SecurityRole.ROLE_GUEST), "Ivan", "Petrov"));
+         */
 
         CommentService commentService = context.getBean(CommentService.class);
         Comment comment1 = commentService.create(new Comment(user1, "commentUser1"));

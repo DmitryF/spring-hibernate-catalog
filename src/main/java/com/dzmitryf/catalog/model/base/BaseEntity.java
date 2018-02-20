@@ -1,6 +1,6 @@
 package com.dzmitryf.catalog.model.base;
 
-import com.dzmitryf.catalog.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,8 +23,10 @@ public abstract class BaseEntity implements Serializable{
 
     private Long id;
 
+    @JsonIgnore
     private Date creatingDate;
 
+    @JsonIgnore
     private Date editingDate;
 
     public void update(BaseEntity entity){

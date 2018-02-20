@@ -1,7 +1,6 @@
 package com.dzmitryf.catalog.repositories;
 
-import com.dzmitryf.catalog.model.User;
-import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

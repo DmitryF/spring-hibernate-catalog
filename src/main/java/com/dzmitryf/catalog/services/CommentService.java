@@ -1,6 +1,6 @@
 package com.dzmitryf.catalog.services;
 
-import com.dzmitryf.catalog.model.User;
+import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.comment.Comment;
 
 import java.util.List;

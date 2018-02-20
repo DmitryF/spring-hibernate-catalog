@@ -1,7 +1,6 @@
 package com.dzmitryf.catalog.services.impl;
 
-import com.dzmitryf.catalog.model.User;
-import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.repositories.CommentRepository;
 import com.dzmitryf.catalog.services.CommentService;

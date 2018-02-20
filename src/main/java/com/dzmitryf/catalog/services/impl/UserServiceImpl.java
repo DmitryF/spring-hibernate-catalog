@@ -1,7 +1,7 @@
 package com.dzmitryf.catalog.services.impl;
 
 import com.dzmitryf.catalog.repositories.UserRepository;
-import com.dzmitryf.catalog.model.User;
+import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
