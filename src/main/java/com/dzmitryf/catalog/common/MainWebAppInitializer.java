@@ -1,5 +1,6 @@
 package com.dzmitryf.catalog.common;
 
+import com.dzmitryf.catalog.config.WebAppMvcConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -18,7 +19,7 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext container) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation(CONFIG_PATH);
+        context.register(WebAppMvcConfig.class);
 
         container.addListener(new ContextLoaderListener(context));
         container.addListener(new ServletContextListener() {

@@ -18,6 +18,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByFirstName(String firstName);
 
     /**
+     * Retrieve user by userName
+     * @param userName
+     * @return the user with given userName or {@literal null} if none found
+     */
+    User findUserByUserName(String userName);
+
+    /**
      * Retrivies users by count books
      * @return the users who sorted by max count of books
      */
