@@ -33,15 +33,15 @@ public class User extends BaseEntity {
 
     public User(){}
 
-    public User(String userName, String password, SecurityRole userRole){
+    public User(String userName, String password){
         setUserName(userName);
         setPassword(password);
     }
 
-    public User(/*String userName, String password, UserRole userRole, */String firstName, String lastName){
-        /*setUserName(userName);
+    public User(String userName, String password, UserRole userRole, String firstName, String lastName){
+        setUserName(userName);
         setPassword(password);
-        setUserRole(userRole);*/
+        setUserRole(userRole);
         setFirstName(firstName);
         setLastName(lastName);
     }
@@ -49,6 +49,9 @@ public class User extends BaseEntity {
     public void update(User user) {
         super.update(user);
         if (user != null){
+            setUserName(user.getUserName());
+            setPassword(user.getPassword());
+            setUserRole(user.getUserRole());
             setFirstName(user.getFirstName());
             setLastName(user.getLastName());
             setBooks(user.getBooks());
@@ -112,7 +115,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "USER_ROLE_ID", nullable = true)
     public UserRole getUserRole() {
         return userRole;
     }

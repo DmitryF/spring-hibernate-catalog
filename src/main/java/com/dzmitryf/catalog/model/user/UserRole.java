@@ -5,6 +5,7 @@ import com.dzmitryf.catalog.model.base.SecurityRole;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -13,12 +14,20 @@ public class UserRole extends BaseEntity {
 
     private SecurityRole securityRole = SecurityRole.ROLE_GUEST;
 
-    private User user;
+    private Set<User> users;
 
     public UserRole(){}
 
     public UserRole(SecurityRole securityRole){
         setSecurityRole(securityRole);
+    }
+
+    public void update(UserRole entity) {
+        super.update(entity);
+        if (entity != null){
+            setSecurityRole(entity.getSecurityRole());
+            setUsers(entity.getUsers());
+        }
     }
 
     @Enumerated(EnumType.STRING)
@@ -31,13 +40,19 @@ public class UserRole extends BaseEntity {
         this.securityRole = securityRole;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    public User getUser() {
-        return user;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole [id=" + getId() +
+                ", securityRole=" + getSecurityRole().toString() +
+                "]";
     }
 }

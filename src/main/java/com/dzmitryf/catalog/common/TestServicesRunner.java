@@ -1,10 +1,13 @@
 package com.dzmitryf.catalog.common;
 
+import com.dzmitryf.catalog.model.base.SecurityRole;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.comment.Comment;
+import com.dzmitryf.catalog.model.user.UserRole;
 import com.dzmitryf.catalog.services.BookService;
 import com.dzmitryf.catalog.services.CommentService;
+import com.dzmitryf.catalog.services.UserRoleService;
 import com.dzmitryf.catalog.services.UserService;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
@@ -18,6 +21,11 @@ public class TestServicesRunner {
 
     private static void test(AnnotationConfigWebApplicationContext context){
 
+        UserRoleService userRoleService = context.getBean(UserRoleService.class);
+        UserRole userRoleGuest = userRoleService.create(new UserRole(SecurityRole.ROLE_GUEST));
+        UserRole userRoleUser = userRoleService.create(new UserRole(SecurityRole.ROLE_USER));
+        UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN));
+
         BookService bookService = context.getBean(BookService.class);
         Book book1 = bookService.create(new Book("book1", "author1", 100L));
         Book book2 = bookService.create(new Book("book2", "author2", 90L));
@@ -25,18 +33,10 @@ public class TestServicesRunner {
         Book book4 = bookService.create(new Book("book4", "author4", 110L));
 
         UserService userService = context.getBean(UserService.class);
-        User user1 = userService.create(new User("Brad", "Pitt"));
-        User user2 = userService.create(new User("Jeckie", "Chan"));
-        User user3 = userService.create(new User("Petr", "Ivanov"));
-        User user4 = userService.create(new User("Ivan", "Petrov"));
-
-        /*
-         UserService userService = context.getBean(UserService.class);
-        User user1 = userService.create(new User("username1", "1234", new UserRole(SecurityRole.ROLE_GUEST), "Brad", "Pitt"));
-        User user2 = userService.create(new User("username2", "1234", new UserRole(SecurityRole.ROLE_USER), "Jeckie", "Chan"));
-        User user3 = userService.create(new User("username3", "1234", new UserRole(SecurityRole.ROLE_ADMIN), "Petr", "Ivanov"));
-        User user4 = userService.create(new User("username4", "1234", new UserRole(SecurityRole.ROLE_GUEST), "Ivan", "Petrov"));
-         */
+        User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"));
+        User user2 = userService.create(new User("username2", "1234", userRoleUser, "Jeckie", "Chan"));
+        User user3 = userService.create(new User("username3", "1234", userRoleAdmin, "Petr", "Ivanov"));
+        User user4 = userService.create(new User("username4", "1234", userRoleGuest, "Ivan", "Petrov"));
 
         CommentService commentService = context.getBean(CommentService.class);
         Comment comment1 = commentService.create(new Comment(user1, "commentUser1"));
