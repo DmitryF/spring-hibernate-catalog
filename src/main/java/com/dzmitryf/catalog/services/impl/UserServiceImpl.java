@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        LOGGER.info("Finding user by count books");
+        LOGGER.info("Finding all users");
         List<User> users = userRepository.findAll();
         users.stream().forEach(user -> loadUserRole(user));
         LOGGER.info("Found {} users", users.size());

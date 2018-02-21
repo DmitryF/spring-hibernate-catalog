@@ -7,7 +7,7 @@
     </appender>
 
     <logger name="javax.net" level="info"/>
-    <logger name="org.springframework" level="debug"/>
+    <logger name="org.springframework" level="info"/>
 
     <root level="info">
         <appender-ref ref="CONSOLE" />

@@ -2,6 +2,8 @@ package com.dzmitryf.catalog.controllers;
 
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.services.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
 
     @Autowired
     private CommentService commentService;
@@ -21,7 +25,9 @@ public class CommentController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public @ResponseBody
     List<Comment> getAllComments() {
+        LOGGER.info("Request get all comments");
         List<Comment> comments = commentService.getAllComments();
+        LOGGER.info("Response has {} comments", comments.size());
         return comments;
     }
 
@@ -31,7 +37,9 @@ public class CommentController {
      */
     @RequestMapping(value = "{commentId}", method = RequestMethod.GET)
     public @ResponseBody Comment getCmmentById(@PathVariable("commentId") Long commentId) {
+        LOGGER.info("Request get comment by id: {}", commentId);
         Comment comment = commentService.getById(commentId);
+        LOGGER.info("Response has comment: {}", comment);
         return comment;
     }
 }

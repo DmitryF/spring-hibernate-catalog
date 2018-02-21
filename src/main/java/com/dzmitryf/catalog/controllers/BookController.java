@@ -2,6 +2,8 @@ package com.dzmitryf.catalog.controllers;
 
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.services.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 public class BookController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
     @Autowired
     private BookService bookService;
@@ -21,7 +25,9 @@ public class BookController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public @ResponseBody
     List<Book> getAllBooks() {
+        LOGGER.info("Request get all books");
         List<Book> books = bookService.getAllBooks();
+        LOGGER.info("Response has {} books", books.size());
         return books;
     }
 
@@ -31,7 +37,9 @@ public class BookController {
      */
     @RequestMapping(value = "{bookId}", method = RequestMethod.GET)
     public @ResponseBody Book getCmmentById(@PathVariable("bookId") Long bookId) {
+        LOGGER.info("Request get book by id: {}", bookId);
         Book book = bookService.getById(bookId);
+        LOGGER.info("Response has book: {}", book);
         return book;
     }
 }
