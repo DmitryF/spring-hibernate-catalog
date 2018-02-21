@@ -3,6 +3,7 @@ package com.dzmitryf.catalog.model.book;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.base.BaseEntity;
 import com.dzmitryf.catalog.model.base.Language;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,14 +23,16 @@ public class Book extends BaseEntity {
 
     private Language language = Language.UNDEFINED;
 
+    @JsonIgnore
     private Set<User> users = new HashSet<User>(0);
 
     public Book(){}
 
-    public Book(String name, String authorName, Long countPages){
+    public Book(String name, String authorName, Long countPages, Language language){
         setName(name);
         setAuthorName(authorName);
         setCountPages(countPages);
+        setLanguage(language);
     }
 
     public void update(Book book) {

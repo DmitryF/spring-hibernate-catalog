@@ -27,7 +27,7 @@ public class CommentController {
 
     /**
      * Get comment by id
-     * @return
+     * @return the comment with given id
      */
     @RequestMapping(value = "{commentId}", method = RequestMethod.GET)
     public @ResponseBody Comment getCmmentById(@PathVariable("commentId") Long commentId) {

@@ -23,6 +23,12 @@ public interface BookService extends CrudService<Book> {
     List<Book> getBooksByCountPagesDesc();
 
     /**
+     * Retrieves all books
+     * @return books list
+     */
+    List<Book> getAllBooks();
+
+    /**
      * Retrieve book by author name
      * @return the books with given author name
      */

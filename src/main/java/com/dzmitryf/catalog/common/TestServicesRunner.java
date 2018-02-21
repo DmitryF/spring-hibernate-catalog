@@ -1,5 +1,6 @@
 package com.dzmitryf.catalog.common;
 
+import com.dzmitryf.catalog.model.base.Language;
 import com.dzmitryf.catalog.model.base.SecurityRole;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.book.Book;
@@ -27,10 +28,10 @@ public class TestServicesRunner {
         UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN));
 
         BookService bookService = context.getBean(BookService.class);
-        Book book1 = bookService.create(new Book("book1", "author1", 100L));
-        Book book2 = bookService.create(new Book("book2", "author2", 90L));
-        Book book3 = bookService.create(new Book("book3", "author2", 50L));
-        Book book4 = bookService.create(new Book("book4", "author4", 110L));
+        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN));
+        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU));
+        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED));
+        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN));
 
         UserService userService = context.getBean(UserService.class);
         User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"));

@@ -95,6 +95,14 @@ public class BookServiceImpl implements BookService {
         return books;
     }
 
+    @Override
+    public List<Book> getAllBooks() {
+        LOGGER.info("Finding all books");
+        List<Book> books = bookRepository.findAll();
+        LOGGER.info("Found {} books", books.size());
+        return books;
+    }
+
     @Transactional
     public List<Book> getBooksByAuthorName(String authorName) {
         LOGGER.info("Finding books by author name: {}", authorName);
