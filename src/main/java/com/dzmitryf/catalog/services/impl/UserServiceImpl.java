@@ -2,6 +2,7 @@ package com.dzmitryf.catalog.services.impl;
 
 import com.dzmitryf.catalog.repositories.UserRepository;
 import com.dzmitryf.catalog.model.user.User;
+import com.dzmitryf.catalog.services.UserRoleService;
 import com.dzmitryf.catalog.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserRoleService userRoleUserService;
 
     @Autowired
     private EntityManager entityManager;
@@ -84,6 +88,16 @@ public class UserServiceImpl implements UserService {
     public User getUserByFirstName(String firstName) {
         LOGGER.info("Finding a user by first name: {}", firstName);
         User user = userRepository.findUserByFirstName(firstName);
+        loadUserRole(user);
+        LOGGER.info("Found a user: {}", user);
+        return user;
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        LOGGER.info("Finding a user by username: {}", username);
+        User user = userRepository.findUserByUserName(username);
+        loadUserRole(user);
         LOGGER.info("Found a user: {}", user);
         return user;
     }
@@ -95,4 +109,19 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    public List<User> getAllUsers() {
+        LOGGER.info("Finding user by count books");
+        List<User> users = userRepository.findAll();
+        users.stream().forEach(user -> loadUserRole(user));
+        LOGGER.info("Found {} users", users.size());
+        return users;
+    }
+
+    /**
+     * Load role for user
+     * @param user
+     */
+    private void loadUserRole(User user){
+        user.setUserRole(userRoleUserService.getById(user.getUserRole().getId()));
+    }
 }

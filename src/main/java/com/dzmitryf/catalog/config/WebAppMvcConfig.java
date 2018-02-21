@@ -30,7 +30,7 @@ public class WebAppMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * Set up Json converters
+     * Configure Json converters
      * @param converters list
      */
     @Override

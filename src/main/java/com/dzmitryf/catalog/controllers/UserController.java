@@ -13,8 +13,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "{firstName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User getUserByFirstName(@PathVariable("firstName") String firstName){
-        return userService.getUserByFirstName(firstName);
+    @RequestMapping(value = "{username}", method = RequestMethod.GET)
+    public @ResponseBody User getUserByFirstName(@PathVariable("username") String username){
+        return userService.getUserByUsername(username);
     }
 }
