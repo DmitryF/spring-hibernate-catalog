@@ -131,7 +131,6 @@
             <version>${spring-secutiry.version}</version>
         </dependency>
 
-
         <!-- Logging with SLF4J & LogBack -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -182,8 +181,6 @@
             <version>${jackson.version}</version>
         </dependency>
 
-
-
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -197,8 +194,6 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
-
-
 
     </dependencies>
 
