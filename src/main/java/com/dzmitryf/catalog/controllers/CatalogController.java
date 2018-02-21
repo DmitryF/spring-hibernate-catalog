@@ -1,6 +1,8 @@
 package com.dzmitryf.catalog.controllers;
 
+import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.model.user.User;
+import com.dzmitryf.catalog.services.CommentService;
 import com.dzmitryf.catalog.services.UserRoleService;
 import com.dzmitryf.catalog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class CatalogController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private MessageSource messageSource;
@@ -40,6 +45,16 @@ public class CatalogController {
     public @ResponseBody List<User> adminAll() {
         List<User> users = userService.getAllUsers();
         return users;
+    }
+
+    /**
+     * Get all comments in database
+     * @return
+     */
+    @RequestMapping(value = "/admin/comment/all", method = RequestMethod.GET)
+    public @ResponseBody List<Comment> adminCommentAll() {
+        List<Comment> comments = commentService.getAllComments();
+        return comments;
     }
 
     /**

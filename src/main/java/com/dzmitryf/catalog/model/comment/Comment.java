@@ -2,6 +2,7 @@ package com.dzmitryf.catalog.model.comment;
 
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ public class Comment extends BaseEntity {
 
     private String message;
 
+    @JsonIgnore
     private User user;
 
     public Comment(){}

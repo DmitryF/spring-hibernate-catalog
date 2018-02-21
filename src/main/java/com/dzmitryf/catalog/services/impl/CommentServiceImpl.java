@@ -85,7 +85,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public List<Comment> getAllCommentsOfUser(User user) {
+    public List<Comment> getAllCommentsByUser(User user) {
         LOGGER.info("Finding comments by user: {}", user);
         List<Comment> comments = new ArrayList<>();
         try {
@@ -96,6 +96,14 @@ public class CommentServiceImpl implements CommentService {
         } catch (Exception e){
             LOGGER.error("Error while finding a comments by user: ", e);
         }
+        return comments;
+    }
+
+    @Override
+    public List<Comment> getAllComments() {
+        LOGGER.info("Finding all comments");
+        List<Comment> comments = commentRepository.findAll();
+        LOGGER.info("Found {} comments", comments.size());
         return comments;
     }
 }

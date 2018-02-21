@@ -88,7 +88,7 @@ public class TestServicesRunner {
         booksByAuthorName.forEach((Book book)->System.out.println(book.getName()));
 
         //commentsByUser
-        List<Comment> commentsByUser = commentService.getAllCommentsOfUser(user1);
+        List<Comment> commentsByUser = commentService.getAllCommentsByUser(user1);
         commentsByUser.forEach((Comment comment)->System.out.println(comment.getMessage()));
     }
 }

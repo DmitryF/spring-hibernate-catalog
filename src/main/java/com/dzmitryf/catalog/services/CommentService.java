@@ -15,5 +15,11 @@ public interface CommentService extends CrudService<Comment> {
      * @param user
      * @return the comments with given user
      */
-    List<Comment> getAllCommentsOfUser(User user);
+    List<Comment> getAllCommentsByUser(User user);
+
+    /**
+     * Retrieves all comments
+     * @return comments list
+     */
+    List<Comment> getAllComments();
 }
