@@ -1,16 +1,11 @@
 package com.dzmitryf.catalog.controllers;
 
-import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.model.user.User;
-import com.dzmitryf.catalog.services.CommentService;
-import com.dzmitryf.catalog.services.UserRoleService;
 import com.dzmitryf.catalog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -19,9 +14,6 @@ public class CatalogController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private CommentService commentService;
 
     @Autowired
     private MessageSource messageSource;
@@ -35,26 +27,6 @@ public class CatalogController {
     public @ResponseBody User login(@RequestParam(value = "username", required = false) String username) {
         User user = userService.getUserByUsername(username);
         return user;
-    }
-
-    /**
-     * Get all users in database
-     * @return
-     */
-    @RequestMapping(value = "/admin/all", method = RequestMethod.GET)
-    public @ResponseBody List<User> adminAll() {
-        List<User> users = userService.getAllUsers();
-        return users;
-    }
-
-    /**
-     * Get all comments in database
-     * @return
-     */
-    @RequestMapping(value = "/admin/comment/all", method = RequestMethod.GET)
-    public @ResponseBody List<Comment> adminCommentAll() {
-        List<Comment> comments = commentService.getAllComments();
-        return comments;
     }
 
     /**
