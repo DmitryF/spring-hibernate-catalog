@@ -19,7 +19,8 @@ public class User extends BaseEntity {
 
     private String password;
 
-    @JsonIgnore
+    private boolean enabled = true;
+
     private UserRole userRole;
 
     private String firstName;
@@ -108,6 +109,7 @@ public class User extends BaseEntity {
         this.userName = userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -126,6 +128,16 @@ public class User extends BaseEntity {
         this.userRole = userRole;
     }
 
+    @JsonIgnore
+    @Column(name="ENABLED", unique=false, nullable=true)
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + getId() +
@@ -134,4 +146,5 @@ public class User extends BaseEntity {
                 ", lastName=" + getLastName()+
                 "]";
     }
+
 }

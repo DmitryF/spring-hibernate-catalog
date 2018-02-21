@@ -2,7 +2,9 @@ package com.dzmitryf.catalog.model.user;
 
 import com.dzmitryf.catalog.model.base.BaseEntity;
 import com.dzmitryf.catalog.model.base.SecurityRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class UserRole extends BaseEntity {
 
     private SecurityRole securityRole = SecurityRole.ROLE_GUEST;
 
+    @JsonIgnore
     private Set<User> users;
 
     public UserRole(){}
@@ -47,6 +50,12 @@ public class UserRole extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @JsonIgnore
+    @Override
+    public Long getId() {
+        return super.getId();
     }
 
     @Override
