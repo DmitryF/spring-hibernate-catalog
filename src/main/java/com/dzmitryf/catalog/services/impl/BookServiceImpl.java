@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -27,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book create(Book entity) {
+    public Book create(Book entity, Locale locale) {
         LOGGER.info("Creating a new book: {}", entity);
         Book book = new Book();
         try {
@@ -42,7 +43,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getById(Long id) {
+    public Book getById(Long id, Locale locale) {
         LOGGER.info("Finding a book by id: {}", id);
         Book book = new Book();
         try {
@@ -56,7 +57,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book update(Book entity) {
+    public Book update(Book entity, Locale locale) {
         LOGGER.info("Updating a book: {}", entity);
         Book book = new Book();
         try {
@@ -71,7 +72,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Book entity) {
+    public void delete(Book entity, Locale locale) {
         LOGGER.info("Deleting a book: {}", entity);
         try {
             bookRepository.delete(entity);
@@ -81,14 +82,16 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-    public Book getBookByName(String name) {
+    @Override
+    public Book getBookByName(String name, Locale locale) {
         LOGGER.info("Finding a book by name: {}", name);
         Book book = bookRepository.findBookByName(name);
         LOGGER.info("Found a book: {}", book);
         return book;
     }
 
-    public List<Book> getBooksByCountPagesDesc() {
+    @Override
+    public List<Book> getBooksByCountPagesDesc(Locale locale) {
         LOGGER.info("Finding books by count pages");
         List<Book> books = bookRepository.findBooksByCountPagesDesc();
         LOGGER.info("Found {} books", books.size());
@@ -96,7 +99,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks(Locale locale) {
         LOGGER.info("Finding all books");
         List<Book> books = bookRepository.findAll();
         LOGGER.info("Found {} books", books.size());
@@ -104,7 +107,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    public List<Book> getBooksByAuthorName(String authorName) {
+    @Override
+    public List<Book> getBooksByAuthorName(String authorName, Locale locale) {
         LOGGER.info("Finding books by author name: {}", authorName);
         List<Book> books = new ArrayList<>();
         try {

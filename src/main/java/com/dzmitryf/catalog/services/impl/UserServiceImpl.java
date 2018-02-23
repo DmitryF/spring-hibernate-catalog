@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User create(User entity) {
+    public User create(User entity, Locale locale) {
         LOGGER.info("Creating a new user: {}", entity);
         User user = new User();
         try {
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(Long id) {
+    public User getById(Long id, Locale locale) {
         LOGGER.info("Finding a user by id: id={}", id);
         User user = new User();
         try {
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User update(User entity) {
+    public User update(User entity, Locale locale) {
         LOGGER.info("Updating a user: {}", entity);
         User user = new User();
         try {
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User entity) {
+    public void delete(User entity, Locale locale) {
         LOGGER.info("Deleting a user: {}", entity);
         try {
             userRepository.delete(entity);
@@ -85,43 +86,46 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User getUserByFirstName(String firstName) {
+    @Override
+    public User getUserByFirstName(String firstName, Locale locale) {
         LOGGER.info("Finding a user by first name: {}", firstName);
         User user = userRepository.findUserByFirstName(firstName);
-        loadUserRole(user);
+        loadUserRole(user, locale);
         LOGGER.info("Found a user: {}", user);
         return user;
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username, Locale locale) {
         LOGGER.info("Finding a user by username: {}", username);
         User user = userRepository.findUserByUserName(username);
-        loadUserRole(user);
+        loadUserRole(user, locale);
         LOGGER.info("Found a user: {}", user);
         return user;
     }
 
-    public List<User> getUsersByCountBooksDesc() {
+    public List<User> getUsersByCountBooksDesc(Locale locale) {
         LOGGER.info("Finding user by count books");
         List<User> users = userRepository.findUsersByCountBooksDesc();
         LOGGER.info("Found {} users", users.size());
         return users;
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(Locale locale) {
         LOGGER.info("Finding all users");
         List<User> users = userRepository.findAll();
-        users.stream().forEach(user -> loadUserRole(user));
+        users.stream().forEach(user -> loadUserRole(user, locale));
         LOGGER.info("Found {} users", users.size());
         return users;
     }
 
     /**
      * Load role for user
+     *
+     * @param locale
      * @param user
      */
-    private void loadUserRole(User user){
-        user.setUserRole(userRoleUserService.getById(user.getUserRole().getId()));
+    private void loadUserRole(User user, Locale locale){
+        user.setUserRole(userRoleUserService.getById(user.getUserRole().getId(), locale));
     }
 }

@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.Locale;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -26,7 +27,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     private EntityManager entityManager;
 
     @Override
-    public UserRole getUserRoleBySecurityRole(SecurityRole securityRole) {
+    public UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale) {
         LOGGER.info("Finding a user role by security role: {}", securityRole);
         UserRole userRole = userRoleRepository.findUserRoleBySecurityRole(securityRole);
         LOGGER.info("Found a user role: {}", userRole);
@@ -35,7 +36,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Transactional
     @Override
-    public UserRole create(UserRole entity) {
+    public UserRole create(UserRole entity, Locale locale) {
         LOGGER.info("Creating a new user role: {}", entity);
         UserRole userRole = new UserRole();
         userRole.update(entity);
@@ -70,7 +71,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole getById(Long id) {
+    public UserRole getById(Long id, Locale locale) {
         LOGGER.info("Finding a user role by id: id={}", id);
         UserRole userRole = new UserRole();
         try {
@@ -85,7 +86,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Transactional
     @Override
-    public UserRole update(UserRole entity) {
+    public UserRole update(UserRole entity, Locale locale) {
         LOGGER.info("Updating a user role: {}", entity);
         UserRole userRole = new UserRole();
         try {
@@ -101,7 +102,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void delete(UserRole entity) {
+    public void delete(UserRole entity, Locale locale) {
         LOGGER.info("Deleting a user role: {}", entity);
         try {
             userRoleRepository.delete(entity);
