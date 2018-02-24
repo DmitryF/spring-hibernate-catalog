@@ -13,18 +13,18 @@ public interface CommentService extends CrudService<Comment> {
 
     /**
      * Retrieves all comments of user
-     *
      * @param user
      * @param locale
      * @return the comments with given user
+     * @throws Exception
      */
-    List<Comment> getAllCommentsByUser(User user, Locale locale);
+    List<Comment> getAllCommentsByUser(User user, Locale locale) throws Exception;
 
     /**
      * Retrieves all comments
-     *
      * @param locale
      * @return comments list
+     * @throws Exception
      */
-    List<Comment> getAllComments(Locale locale);
+    List<Comment> getAllComments(Locale locale) throws Exception;
 }

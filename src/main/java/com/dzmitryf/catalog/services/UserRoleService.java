@@ -12,10 +12,10 @@ public interface UserRoleService extends CrudService<UserRole> {
 
     /**
      * Retrieve user role by security role
-     *
      * @param securityRole
      * @param locale
      * @return the user role with given security role or {@literal null} if none found
+     * @throws Exception
      */
-    UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale);
+    UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale) throws Exception;
 }
