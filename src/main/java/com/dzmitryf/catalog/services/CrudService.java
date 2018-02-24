@@ -29,7 +29,6 @@ public interface CrudService<T> {
     /**
      * Update a given entity. Use the returned instance for further operations as the save operation might have changed the
      * entity instance completely.
-     *
      * @param entity must note be {@literal null}
      * @param locale
      * @return the updated entity
@@ -39,7 +38,6 @@ public interface CrudService<T> {
 
     /**
      * Deletes a given entity.
-     *
      * @param entity must note be {@literal null}
      * @param locale
      * @throws Exception

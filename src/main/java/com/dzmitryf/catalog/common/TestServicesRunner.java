@@ -13,37 +13,38 @@ import com.dzmitryf.catalog.services.UserService;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TestServicesRunner {
 
-    public static void run(AnnotationConfigWebApplicationContext context){
+    public static void run(AnnotationConfigWebApplicationContext context) throws Exception{
         test(context);
     }
 
-    private static void test(AnnotationConfigWebApplicationContext context){
+    private static void test(AnnotationConfigWebApplicationContext context) throws Exception{
 
         UserRoleService userRoleService = context.getBean(UserRoleService.class);
-        UserRole userRoleGuest = userRoleService.create(new UserRole(SecurityRole.ROLE_GUEST));
-        UserRole userRoleUser = userRoleService.create(new UserRole(SecurityRole.ROLE_USER));
-        UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN));
+        UserRole userRoleGuest = userRoleService.create(new UserRole(SecurityRole.ROLE_GUEST), Locale.getDefault());
+        UserRole userRoleUser = userRoleService.create(new UserRole(SecurityRole.ROLE_USER), Locale.getDefault());
+        UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN), Locale.getDefault());
 
         BookService bookService = context.getBean(BookService.class);
-        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN));
-        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU));
-        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED));
-        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN));
+        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN), Locale.getDefault());
+        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU), Locale.getDefault());
+        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED), Locale.getDefault());
+        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN), Locale.getDefault());
 
         UserService userService = context.getBean(UserService.class);
-        User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"));
-        User user2 = userService.create(new User("username2", "1234", userRoleUser, "Jeckie", "Chan"));
-        User user3 = userService.create(new User("username3", "1234", userRoleAdmin, "Petr", "Ivanov"));
-        User user4 = userService.create(new User("username4", "1234", userRoleGuest, "Ivan", "Petrov"));
+        User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"), Locale.getDefault());
+        User user2 = userService.create(new User("username2", "1234", userRoleUser, "Jeckie", "Chan"), Locale.getDefault());
+        User user3 = userService.create(new User("username3", "1234", userRoleAdmin, "Petr", "Ivanov"), Locale.getDefault());
+        User user4 = userService.create(new User("username4", "1234", userRoleGuest, "Ivan", "Petrov"), Locale.getDefault());
 
         CommentService commentService = context.getBean(CommentService.class);
-        Comment comment1 = commentService.create(new Comment(user1, "commentUser1"));
-        Comment comment2 = commentService.create(new Comment(user2, "commentUser2"));
-        Comment comment3 = commentService.create(new Comment(user3, "commentUser3"));
-        Comment comment4 = commentService.create(new Comment(user4, "commentUser4"));
+        Comment comment1 = commentService.create(new Comment(user1, "commentUser1"), Locale.getDefault());
+        Comment comment2 = commentService.create(new Comment(user2, "commentUser2"), Locale.getDefault());
+        Comment comment3 = commentService.create(new Comment(user3, "commentUser3"), Locale.getDefault());
+        Comment comment4 = commentService.create(new Comment(user4, "commentUser4"), Locale.getDefault());
 
         user1.getBooks().add(book1);
         user1.getBooks().add(book2);
@@ -59,37 +60,37 @@ public class TestServicesRunner {
         user4.getBooks().add(book3);
         user4.getBooks().add(book4);
 
-        userService.update(user1);
-        userService.update(user2);
-        userService.update(user3);
-        userService.update(user4);
-
+        userService.update(user1, Locale.getDefault());
+        userService.update(user2, Locale.getDefault());
+        userService.update(user3, Locale.getDefault());
+        userService.update(user4, Locale.getDefault());
+/*
         //findUserByFirstName
-        User findedUserByFirstName = userService.getUserByFirstName("Brad");
+        User findedUserByFirstName = userService.getUserByFirstName("Brad", Locale.getDefault());
         if (findedUserByFirstName != null){
             System.out.println(findedUserByFirstName.getFirstName());
         }
 
         //findUsersByCountBooksDesc
-        List<User> usersByCountBooks = userService.getUsersByCountBooksDesc();
+        List<User> usersByCountBooks = userService.getUsersByCountBooksDesc(Locale.getDefault());
         usersByCountBooks.forEach((User user) -> System.out.println(user.getFirstName()));
 
         //findBookByName
-        Book findedBook = bookService.getBookByName("book1");
+        Book findedBook = bookService.getBookByName("book1", Locale.getDefault());
         if (findedBook != null){
             System.out.println(findedBook.getName());
         }
 
         //findBooksByCountPagesDesc
-        List<Book> booksByCountPages = bookService.getBooksByCountPagesDesc();
+        List<Book> booksByCountPages = bookService.getBooksByCountPagesDesc(Locale.getDefault());
         booksByCountPages.forEach((Book book)-> System.out.println(book.getCountPages()));
 
         //getBooksByAuthorName
-        List<Book> booksByAuthorName = bookService.getBooksByAuthorName("author2");
+        List<Book> booksByAuthorName = bookService.getBooksByAuthorName("author2", Locale.getDefault());
         booksByAuthorName.forEach((Book book)->System.out.println(book.getName()));
 
         //commentsByUser
-        List<Comment> commentsByUser = commentService.getAllCommentsByUser(user1);
-        commentsByUser.forEach((Comment comment)->System.out.println(comment.getMessage()));
+        List<Comment> commentsByUser = commentService.getAllCommentsByUser(user1, Locale.getDefault());
+        commentsByUser.forEach((Comment comment)->System.out.println(comment.getMessage()));*/
     }
 }

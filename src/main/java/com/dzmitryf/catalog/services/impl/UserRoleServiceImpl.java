@@ -27,7 +27,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     private EntityManager entityManager;
 
     @Override
-    public UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale) {
+    public UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale) throws Exception {
         LOGGER.info("Finding a user role by security role: {}", securityRole);
         UserRole userRole = userRoleRepository.findUserRoleBySecurityRole(securityRole);
         LOGGER.info("Found a user role: {}", userRole);
@@ -36,7 +36,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Transactional
     @Override
-    public UserRole create(UserRole entity, Locale locale) {
+    public UserRole create(UserRole entity, Locale locale) throws Exception {
         LOGGER.info("Creating a new user role: {}", entity);
         UserRole userRole = new UserRole();
         userRole.update(entity);
@@ -59,7 +59,7 @@ public class UserRoleServiceImpl implements UserRoleService {
      * @param userRole
      * @return true if exist otherwise false
      */
-    private boolean isUserRoleExist(UserRole userRole){
+    private boolean isUserRoleExist(UserRole userRole) throws Exception{
         Query query = entityManager.createNativeQuery("SELECT * FROM hbschema.user_roles WHERE name = ?1", UserRole.class);
         query.setParameter(1, userRole.getSecurityRole().toString());
         try {
@@ -71,7 +71,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole getById(Long id, Locale locale) {
+    public UserRole getById(Long id, Locale locale) throws Exception{
         LOGGER.info("Finding a user role by id: id={}", id);
         UserRole userRole = new UserRole();
         try {
@@ -86,7 +86,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Transactional
     @Override
-    public UserRole update(UserRole entity, Locale locale) {
+    public UserRole update(UserRole entity, Locale locale) throws Exception{
         LOGGER.info("Updating a user role: {}", entity);
         UserRole userRole = new UserRole();
         try {
@@ -102,7 +102,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public void delete(UserRole entity, Locale locale) {
+    public void delete(UserRole entity, Locale locale) throws Exception{
         LOGGER.info("Deleting a user role: {}", entity);
         try {
             userRoleRepository.delete(entity);

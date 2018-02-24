@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/comment")
@@ -24,9 +25,9 @@ public class CommentController {
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public @ResponseBody
-    List<Comment> getAllComments() {
+    List<Comment> getAllComments(Locale locale) throws Exception{
         LOGGER.info("Request get all comments");
-        List<Comment> comments = commentService.getAllComments();
+        List<Comment> comments = commentService.getAllComments(locale);
         LOGGER.info("Response has {} comments", comments.size());
         return comments;
     }
@@ -36,9 +37,9 @@ public class CommentController {
      * @return the comment with given id
      */
     @RequestMapping(value = "{commentId}", method = RequestMethod.GET)
-    public @ResponseBody Comment getCmmentById(@PathVariable("commentId") Long commentId) {
+    public @ResponseBody Comment getCmmentById(@PathVariable("commentId") Long commentId, Locale locale) throws Exception{
         LOGGER.info("Request get comment by id: {}", commentId);
-        Comment comment = commentService.getById(commentId);
+        Comment comment = commentService.getById(commentId, locale);
         LOGGER.info("Response has comment: {}", comment);
         return comment;
     }

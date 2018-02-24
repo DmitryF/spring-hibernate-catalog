@@ -47,7 +47,11 @@ public class MainWebAppInitializer implements WebApplicationInitializer {
         return new ServletContextListener() {
             @Override
             public void contextInitialized(ServletContextEvent servletContextEvent) {
-                TestServicesRunner.run(context);
+                try {
+                    TestServicesRunner.run(context);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

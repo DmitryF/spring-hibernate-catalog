@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/book")
@@ -24,9 +25,9 @@ public class BookController {
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public @ResponseBody
-    List<Book> getAllBooks() {
+    List<Book> getAllBooks(Locale locale) throws Exception{
         LOGGER.info("Request get all books");
-        List<Book> books = bookService.getAllBooks();
+        List<Book> books = bookService.getAllBooks(locale);
         LOGGER.info("Response has {} books", books.size());
         return books;
     }
@@ -36,9 +37,9 @@ public class BookController {
      * @return the book with given id
      */
     @RequestMapping(value = "{bookId}", method = RequestMethod.GET)
-    public @ResponseBody Book getCmmentById(@PathVariable("bookId") Long bookId) {
+    public @ResponseBody Book getCmmentById(@PathVariable("bookId") Long bookId, Locale locale) throws Exception{
         LOGGER.info("Request get book by id: {}", bookId);
-        Book book = bookService.getById(bookId);
+        Book book = bookService.getById(bookId, locale);
         LOGGER.info("Response has book: {}", book);
         return book;
     }

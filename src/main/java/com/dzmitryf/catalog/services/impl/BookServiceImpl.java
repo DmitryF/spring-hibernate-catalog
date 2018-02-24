@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book create(Book entity, Locale locale) {
+    public Book create(Book entity, Locale locale) throws Exception{
         LOGGER.info("Creating a new book: {}", entity);
         Book book = new Book();
         try {
@@ -43,7 +43,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getById(Long id, Locale locale) {
+    public Book getById(Long id, Locale locale) throws Exception{
         LOGGER.info("Finding a book by id: {}", id);
         Book book = new Book();
         try {
@@ -57,7 +57,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book update(Book entity, Locale locale) {
+    public Book update(Book entity, Locale locale) throws Exception{
         LOGGER.info("Updating a book: {}", entity);
         Book book = new Book();
         try {
@@ -72,7 +72,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Book entity, Locale locale) {
+    public void delete(Book entity, Locale locale) throws Exception{
         LOGGER.info("Deleting a book: {}", entity);
         try {
             bookRepository.delete(entity);
@@ -83,7 +83,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBookByName(String name, Locale locale) {
+    public Book getBookByName(String name, Locale locale) throws Exception{
         LOGGER.info("Finding a book by name: {}", name);
         Book book = bookRepository.findBookByName(name);
         LOGGER.info("Found a book: {}", book);
@@ -91,7 +91,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooksByCountPagesDesc(Locale locale) {
+    public List<Book> getBooksByCountPagesDesc(Locale locale) throws Exception{
         LOGGER.info("Finding books by count pages");
         List<Book> books = bookRepository.findBooksByCountPagesDesc();
         LOGGER.info("Found {} books", books.size());
@@ -108,7 +108,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public List<Book> getBooksByAuthorName(String authorName, Locale locale) {
+    public List<Book> getBooksByAuthorName(String authorName, Locale locale) throws Exception{
         LOGGER.info("Finding books by author name: {}", authorName);
         List<Book> books = new ArrayList<>();
         try {

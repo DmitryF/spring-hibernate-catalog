@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment create(Comment entity, Locale locale) {
+    public Comment create(Comment entity, Locale locale) throws Exception{
         LOGGER.info("Creating a new comment: {}", entity);
         Comment comment = new Comment();
         try {
@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getById(Long id, Locale locale) {
+    public Comment getById(Long id, Locale locale) throws Exception{
         LOGGER.info("Finding a comment by id: {}", id);
         Comment comment = new Comment();
         try {
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment update(Comment entity, Locale locale) {
+    public Comment update(Comment entity, Locale locale) throws Exception{
         LOGGER.info("Updating a book: {}", entity);
         Comment comment = new Comment();
         try {
@@ -74,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void delete(Comment entity, Locale locale) {
+    public void delete(Comment entity, Locale locale) throws Exception{
         LOGGER.info("Deleting a comment: {}", entity);
         try {
             commentRepository.delete(entity);
@@ -86,7 +86,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public List<Comment> getAllCommentsByUser(User user, Locale locale) {
+    public List<Comment> getAllCommentsByUser(User user, Locale locale) throws Exception{
         LOGGER.info("Finding comments by user: {}", user);
         List<Comment> comments = new ArrayList<>();
         try {
@@ -101,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllComments(Locale locale) {
+    public List<Comment> getAllComments(Locale locale) throws Exception{
         LOGGER.info("Finding all comments");
         List<Comment> comments = commentRepository.findAll();
         LOGGER.info("Found {} comments", comments.size());
