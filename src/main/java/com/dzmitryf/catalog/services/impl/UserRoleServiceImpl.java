@@ -31,12 +31,32 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     private EntityManager entityManager;
 
+    /**
+     * Retrieve user role by security role
+     * @param securityRole
+     * @param locale
+     * @return the user role with given security role or {@literal null} if none found
+     * @throws Exception
+     * @throws ApiServiceException if user role not found
+     */
     @Override
     public UserRole getUserRoleBySecurityRole(SecurityRole securityRole, Locale locale) throws Exception {
-        LOGGER.info("Finding a user role by security role: {}", securityRole);
-        UserRole userRole = userRoleRepository.findUserRoleBySecurityRole(securityRole);
-        LOGGER.info("Found a user role: {}", userRole);
-        return userRole;
+        LOGGER.info(messageSource.getMessage("user.role.service.get.user.role.by.security.role", new Object[]{securityRole}, locale));
+        try {
+            if (securityRole == null){
+                throw new IllegalArgumentException();
+            }
+            UserRole userRole = userRoleRepository.findUserRoleBySecurityRole(securityRole);
+            if (userRole == null) {
+                throw new IllegalArgumentException();
+            }
+            LOGGER.info(messageSource.getMessage("user.service.found.user", new Object[]{userRole}, locale));
+            return userRole;
+        } catch (IllegalArgumentException e){
+            LOGGER.info(messageSource.getMessage("user.role.service.user.role.security.role.not.found", new Object[]{securityRole}, locale));
+            throw new ApiServiceException(messageSource.getMessage("user.role.service.user.role.security.role.not.found", new Object[]{securityRole}, locale),
+                    HttpStatus.PRECONDITION_FAILED);
+        }
     }
 
     /**
@@ -58,6 +78,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             entityManager.persist(createdUserRole);
             entityManager.flush();
             LOGGER.info(messageSource.getMessage("user.role.service.created.user.role", new Object[]{createdUserRole}, locale));
+            return createdUserRole;
         } catch (EntityExistsException e) {
             LOGGER.info(messageSource.getMessage("user.role.service.user.role.already.exist",
                     new Object[]{userRole.getSecurityRole().toString()}, locale));
@@ -82,64 +103,84 @@ public class UserRoleServiceImpl implements UserRoleService {
             LOGGER.error(messageSource.getMessage("user.role.service.error.create.user.role", null, locale), e);
             throw e;
         }
-        return createdUserRole;
     }
 
     /**
-     * Check the user`s role in existence
-     * @param userRole
-     * @return true if exist otherwise false
+     * Retrieves an user role by its id.
+     * @param id must not be {@literal null}.
+     * @param locale
+     * @return the user role with the given id or {@literal null} if none found
+     * @throws Exception
+     * @throws ApiServiceException if user role not found
      */
-    private boolean isUserRoleExist(UserRole userRole) throws Exception{
-        Query query = entityManager.createNativeQuery("SELECT * FROM hbschema.user_roles WHERE name = ?1", UserRole.class);
-        query.setParameter(1, userRole.getSecurityRole().toString());
-        try {
-            UserRole existRole = (UserRole) query.getSingleResult();
-            return  existRole != null;
-        } catch (NoResultException e){
-            return false;
-        }
-    }
-
     @Override
     public UserRole getById(Long id, Locale locale) throws Exception{
-        LOGGER.info("Finding a user role by id: id={}", id);
+        LOGGER.info(messageSource.getMessage("user.role.service.get.user.role.by.id", new Object[]{id}, locale));
         UserRole userRole = new UserRole();
         try {
             userRole = userRoleRepository.findOne(id);
-            LOGGER.info("Found a user role: {}", userRole);
-        } catch (Exception e) {
-            LOGGER.error("Error while finding a user role by id: ", e);
-            return null;
+            if (userRole == null){
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
+            LOGGER.info(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{id}, locale));
+            throw new ApiServiceException(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{id}, locale),
+                    HttpStatus.PRECONDITION_FAILED);
         }
+        LOGGER.info(messageSource.getMessage("user.role.service.found.user.role", new Object[]{userRole}, locale));
         return userRole;
     }
 
+    /**
+     * Update a given user role. Use the returned instance for further operations as the save operation might have changed the
+     * user role instance completely.
+     * @param userRole must note be {@literal null}
+     * @param locale
+     * @return the updated user
+     * @throws Exception
+     * @throws ApiServiceException if user not found
+     */
     @Transactional
     @Override
-    public UserRole update(UserRole entity, Locale locale) throws Exception{
-        LOGGER.info("Updating a user role: {}", entity);
-        UserRole userRole = new UserRole();
+    public UserRole update(UserRole userRole, Locale locale) throws Exception{
+        LOGGER.info(messageSource.getMessage("user.role.service.update.user.role", new Object[]{userRole}, locale));
+        UserRole updatedUserRole = new UserRole();
         try {
-            userRole = userRoleRepository.findOne(entity.getId());
-            userRole.update(entity);
+            if (userRole == null) {
+                throw new IllegalArgumentException();
+            }
+            updatedUserRole = userRoleRepository.findOne(userRole.getId());
+            updatedUserRole.update(userRole);
             userRoleRepository.flush();
-            LOGGER.info("Updated a user: {}", userRole);
-        } catch (Exception e){
-            LOGGER.error("Error while updating a user: ", e);
-            return null;
+            LOGGER.info(messageSource.getMessage("user.role.service.updated.user.role", new Object[]{updatedUserRole}, locale));
+        } catch (IllegalArgumentException e) {
+            LOGGER.info(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{0}, locale));
+            throw new ApiServiceException(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{0}, locale),
+                    HttpStatus.PRECONDITION_FAILED);
         }
-        return userRole;
+        return updatedUserRole;
     }
 
+    /**
+     * Deletes a given user role.
+     * @param userRole must note be {@literal null}
+     * @param locale
+     * @throws Exception
+     * @throws ApiServiceException if user role not found
+     */
     @Override
-    public void delete(UserRole entity, Locale locale) throws Exception{
-        LOGGER.info("Deleting a user role: {}", entity);
+    public void delete(UserRole userRole, Locale locale) throws Exception{
+        LOGGER.info(messageSource.getMessage("user.role.service.delete.user.role", new Object[]{userRole}, locale));
         try {
-            userRoleRepository.delete(entity);
-            LOGGER.info("Deleted a user role: {}", entity);
-        } catch (Exception e){
-            LOGGER.error("Error while deleting a user role: ", e);
+            if (userRole == null) {
+                throw new IllegalArgumentException();
+            }
+            userRoleRepository.delete(userRole);
+            LOGGER.info(messageSource.getMessage("user.role.service.deleted.user.role", new Object[]{userRole}, locale));
+        } catch (IllegalArgumentException e) {
+            LOGGER.info(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{0}, locale));
+            throw new ApiServiceException(messageSource.getMessage("user.role.service.user.role.id.not.found", new Object[]{0}, locale),
+                    HttpStatus.PRECONDITION_FAILED);
         }
     }
 }
