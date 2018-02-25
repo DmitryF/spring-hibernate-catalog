@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
             updatedUser = userRepository.findOne(user.getId());
             updatedUser.update(user);
             userRepository.flush();
-            LOGGER.info(messageSource.getMessage("user.service.updated.user", new Object[]{user}, locale), updatedUser);
+            LOGGER.info(messageSource.getMessage("user.service.updated.user", new Object[]{updatedUser}, locale));
         } catch (IllegalArgumentException e) {
             LOGGER.info(messageSource.getMessage("user.service.user.id.not.found", new Object[]{0}, locale));
             throw new ApiServiceException(messageSource.getMessage("user.service.user.id.not.found", new Object[]{0}, locale),
