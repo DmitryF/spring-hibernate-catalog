@@ -31,6 +31,7 @@ public class WebAppMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder = new Jackson2ObjectMapperBuilder();
+        jackson2ObjectMapperBuilder.failOnEmptyBeans(false);
         converters.add(new MappingJackson2HttpMessageConverter(jackson2ObjectMapperBuilder.build()));
         Jaxb2RootElementHttpMessageConverter jaxb2RootElementHttpMessageConverter = new Jaxb2RootElementHttpMessageConverter();
         converters.add(jaxb2RootElementHttpMessageConverter);
