@@ -34,12 +34,4 @@ public interface BookService extends CrudService<Book> {
      * @throws Exception
      */
     List<Book> getAllBooks(Locale locale) throws Exception;
-
-    /**
-     * Retrieve book by author name
-     * @param locale
-     * @return the books with given author name
-     * @throws Exception
-     */
-    List<Book> getBooksByAuthorName(String authorName, Locale locale) throws Exception;
 }
