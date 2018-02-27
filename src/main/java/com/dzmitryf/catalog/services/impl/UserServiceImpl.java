@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
             throw new ApiServiceException(messageSource.getMessage("user.service.user.already.exist", new Object[]{user}, locale),
                     HttpStatus.PRECONDITION_FAILED);
         } catch (IllegalArgumentException e){
-            LOGGER.info(messageSource.getMessage("user.service.user.not.entity", new Object[]{user}, locale));
-            throw new ApiServiceException(messageSource.getMessage("user.service.user.not.entity", new Object[]{user}, locale),
+            LOGGER.info(messageSource.getMessage("user.service.user.not.entity", new Object[]{user.getId()}, locale));
+            throw new ApiServiceException(messageSource.getMessage("user.service.user.not.entity", new Object[]{user.getId()}, locale),
                     HttpStatus.PRECONDITION_FAILED);
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("user.service.error.create.user", null, locale), e);
