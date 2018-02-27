@@ -4,6 +4,7 @@ import com.dzmitryf.catalog.repositories.UserRepository;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.services.UserRoleService;
 import com.dzmitryf.catalog.services.UserService;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserRoleService userRoleUserService;
 
     @Autowired
     private EntityManager entityManager;
@@ -76,6 +74,7 @@ public class UserServiceImpl implements UserService {
      * @throws Exception
      * @throws ApiServiceException if user not found
      */
+    @Transactional
     @Override
     public User getById(Long id, Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.get.user.by.id", new Object[]{id}, locale));
@@ -85,6 +84,7 @@ public class UserServiceImpl implements UserService {
             if (user == null){
                 throw new IllegalArgumentException();
             }
+            loadUserRole(user, locale);
         } catch (IllegalArgumentException e) {
             LOGGER.info(messageSource.getMessage("user.service.user.id.not.found", new Object[]{id}, locale));
             throw new ApiServiceException(messageSource.getMessage("user.service.user.id.not.found", new Object[]{id}, locale),
@@ -155,6 +155,7 @@ public class UserServiceImpl implements UserService {
      * @throws Exception
      * @throws ApiServiceException if user not found
      */
+    @Transactional
     @Override
     public User getUserByFirstName(String firstName, Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.get.user.by.first.name", new Object[]{firstName}, locale));
@@ -182,6 +183,7 @@ public class UserServiceImpl implements UserService {
      * @throws Exception
      * @throws ApiServiceException if user not found
      */
+    @Transactional
     @Override
     public User getUserByUsername(String username, Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.get.user.by.username", new Object[]{username}, locale));
@@ -207,6 +209,7 @@ public class UserServiceImpl implements UserService {
      * @return the users who sorted by max count of books
      * @throws Exception
      */
+    @Transactional
     @Override
     public List<User> getUsersByCountBooksDesc(Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.get.user.by.count.books", null, locale));
@@ -229,6 +232,7 @@ public class UserServiceImpl implements UserService {
      * @return users list
      * @throws Exception
      */
+    @Transactional
     @Override
     public List<User> getAllUsers(Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.get.user.all", null, locale));
@@ -251,7 +255,8 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @throws Exception
      */
+    @Transactional
     private void loadUserRole(User user, Locale locale) throws Exception {
-        user.setUserRole(userRoleUserService.getById(user.getUserRole().getId(), locale));
+        user.getUserRole().getSecurityRole();
     }
 }
