@@ -3,8 +3,6 @@ package com.dzmitryf.catalog.model.user;
 import com.dzmitryf.catalog.model.base.BaseEntity;
 import com.dzmitryf.catalog.model.base.SecurityRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -43,7 +41,7 @@ public class UserRole extends BaseEntity {
         this.securityRole = securityRole;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userRole", cascade = CascadeType.PERSIST)
     public Set<User> getUsers() {
         return users;
     }

@@ -118,7 +118,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ROLE_ID", nullable = true)
     public UserRole getUserRole() {
         return userRole;
