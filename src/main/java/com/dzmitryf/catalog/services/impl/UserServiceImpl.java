@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User update(User user, Locale locale) throws Exception {
-        LOGGER.info(messageSource.getMessage("user.service.update.user", new Object[]{user}, locale), user);
+        LOGGER.info(messageSource.getMessage("user.service.update.user", new Object[]{user}, locale));
         User updatedUser = new User();
         try {
             if (user == null) {
@@ -135,9 +135,6 @@ public class UserServiceImpl implements UserService {
     public void delete(User user, Locale locale) throws Exception {
         LOGGER.info(messageSource.getMessage("user.service.delete.user", new Object[]{user}, locale));
         try {
-            if (user == null) {
-                throw new IllegalArgumentException();
-            }
             userRepository.delete(user);
             LOGGER.info(messageSource.getMessage("user.service.deleted.user", new Object[]{user}, locale));
         } catch (IllegalArgumentException e) {

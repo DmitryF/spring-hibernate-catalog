@@ -172,9 +172,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void delete(UserRole userRole, Locale locale) throws Exception{
         LOGGER.info(messageSource.getMessage("user.role.service.delete.user.role", new Object[]{userRole}, locale));
         try {
-            if (userRole == null) {
-                throw new IllegalArgumentException();
-            }
             userRoleRepository.delete(userRole);
             LOGGER.info(messageSource.getMessage("user.role.service.deleted.user.role", new Object[]{userRole}, locale));
         } catch (IllegalArgumentException e) {
