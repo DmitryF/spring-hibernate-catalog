@@ -43,6 +43,7 @@ public class CommentServiceImpl implements CommentService {
      * @param locale
      * @return the saved comment
      * @throws Exception
+     * @throws ApiServiceException if comment not entity or already exists
      */
     @Transactional
     @Override
@@ -62,8 +63,8 @@ public class CommentServiceImpl implements CommentService {
                     new Object[]{comment.getId()}, locale),
                     HttpStatus.PRECONDITION_FAILED);
         } catch (IllegalArgumentException e){
-            LOGGER.info(messageSource.getMessage("comment.service.comment.not.entity", new Object[]{comment}, locale));
-            throw new ApiServiceException(messageSource.getMessage("comment.service.comment.not.entity", new Object[]{comment}, locale),
+            LOGGER.info(messageSource.getMessage("comment.service.comment.not.entity", new Object[]{comment.getId()}, locale));
+            throw new ApiServiceException(messageSource.getMessage("comment.service.comment.not.entity", new Object[]{comment.getId()}, locale),
                     HttpStatus.PRECONDITION_FAILED);
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("comment.service.error.create.comment", null, locale), e);
