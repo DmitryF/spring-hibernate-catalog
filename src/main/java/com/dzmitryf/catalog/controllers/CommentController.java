@@ -32,8 +32,7 @@ public class CommentController {
      * @throws ApiServiceException if comments not found
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Comment> getAllComments(Locale locale) throws Exception{
+    public @ResponseBody List<Comment> getAllComments(Locale locale) throws Exception{
         try {
             LOGGER.info(messageSource.getMessage("comment.controller.get.comment.all", null, locale));
             List<Comment> comments = commentService.getAllComments(locale);
@@ -55,7 +54,7 @@ public class CommentController {
      * @throws ApiServiceException if comment not found
      */
     @RequestMapping(value = "{commentId}", method = RequestMethod.GET)
-    public @ResponseBody Comment getCmmentById(@PathVariable("commentId") Long commentId, Locale locale) throws Exception{
+    public @ResponseBody Comment getCommentById(@PathVariable("commentId") Long commentId, Locale locale) throws Exception{
         try {
             LOGGER.info(messageSource.getMessage("comment.controller.get.comment.by.id", new Object[]{commentId}, locale));
             Comment comment = commentService.getById(commentId, locale);
