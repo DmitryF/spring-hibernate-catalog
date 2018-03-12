@@ -31,9 +31,9 @@ public class BookController {
      * @return books list or {@literal ApiServiceException} if none found
      * @throws ApiServiceException if books not found
      */
+    @CrossOrigin
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Book> getAllBooks(Locale locale) throws Exception{
+    public @ResponseBody List<Book> getAllBooks(Locale locale) throws Exception{
         try {
             LOGGER.info(messageSource.getMessage("book.controller.get.book.all", null, locale));
             List<Book> books = bookService.getAllBooks(locale);
