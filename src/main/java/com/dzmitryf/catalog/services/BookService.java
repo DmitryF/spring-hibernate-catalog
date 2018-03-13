@@ -1,6 +1,7 @@
 package com.dzmitryf.catalog.services;
 
 import com.dzmitryf.catalog.model.book.Book;
+import com.dzmitryf.catalog.model.book.Genre;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,4 +35,12 @@ public interface BookService extends CrudService<Book> {
      * @throws Exception
      */
     List<Book> getAllBooks(Locale locale) throws Exception;
+
+    /**
+     * Retrieves all genres of books
+     * @param locale
+     * @return genres list
+     * @throws Exception
+     */
+    List<Genre> getAllGenresBooks(Locale locale) throws Exception;
 }

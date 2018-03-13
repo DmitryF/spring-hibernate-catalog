@@ -1,5 +1,6 @@
 package com.dzmitryf.catalog.services.impl;
 
+import com.dzmitryf.catalog.model.book.Genre;
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.repositories.BookRepository;
@@ -17,8 +18,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -192,5 +195,21 @@ public class BookServiceImpl implements BookService {
         List<Book> books = bookRepository.findAll();
         LOGGER.info(messageSource.getMessage("book.service.found.books", new Object[]{books.size()}, locale));
         return books;
+    }
+
+    /**
+     * Retrieves all genres of books
+     * @param locale
+     * @return genres list
+     * @throws Exception
+     */
+    @Override
+    public List<Genre> getAllGenresBooks(Locale locale) throws Exception {
+        LOGGER.info(messageSource.getMessage("book.service.get.genres.book", null, locale));
+        List<Genre> genres = Arrays.asList(Genre.values())
+                .stream().filter(genre -> !genre.equals(Genre.UNDEFINED))
+                .collect(Collectors.toList());
+        LOGGER.info(messageSource.getMessage("book.service.found.genres.book", new Object[]{genres.size()}, locale));
+        return genres;
     }
 }

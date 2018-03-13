@@ -23,16 +23,19 @@ public class Book extends BaseEntity {
 
     private Language language = Language.UNDEFINED;
 
+    private Genre genre = Genre.UNDEFINED;
+
     @JsonIgnore
     private Set<User> users = new HashSet<User>(0);
 
     public Book(){}
 
-    public Book(String name, String authorName, Long countPages, Language language){
+    public Book(String name, String authorName, Long countPages, Language language, Genre genre){
         setName(name);
         setAuthorName(authorName);
         setCountPages(countPages);
         setLanguage(language);
+        setGenre(genre);
     }
 
     public void update(Book book) {
@@ -43,6 +46,7 @@ public class Book extends BaseEntity {
             setDescription(book.getDescription());
             setCountPages(book.getCountPages());
             setLanguage(book.getLanguage());
+            setGenre(book.getGenre());
             setUsers(book.getUsers());
         }
     }
@@ -93,6 +97,16 @@ public class Book extends BaseEntity {
         this.language = language;
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="GENRE", unique=false, nullable=true)
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
     public Set<User> getUsers() {
         return users;
@@ -110,6 +124,7 @@ public class Book extends BaseEntity {
                 ", description=" + getDescription() +
                 ", countPages=" + getCountPages() +
                 ", language=" + getLanguage() +
+                ", genre=" + getGenre() +
                 "]";
     }
 }

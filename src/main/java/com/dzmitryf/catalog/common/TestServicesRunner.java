@@ -2,6 +2,7 @@ package com.dzmitryf.catalog.common;
 
 import com.dzmitryf.catalog.model.base.Language;
 import com.dzmitryf.catalog.model.base.SecurityRole;
+import com.dzmitryf.catalog.model.book.Genre;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.comment.Comment;
@@ -29,10 +30,14 @@ public class TestServicesRunner {
         UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN), Locale.getDefault());
 
         BookService bookService = context.getBean(BookService.class);
-        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN), Locale.getDefault());
-        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU), Locale.getDefault());
-        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED), Locale.getDefault());
-        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN), Locale.getDefault());
+        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN, Genre.COMEDY), Locale.getDefault());
+        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU, Genre.DRAMA), Locale.getDefault());
+        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED, Genre.TRAGEDY), Locale.getDefault());
+        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN, Genre.COMEDY), Locale.getDefault());
+        Book book5 = bookService.create(new Book("book5", "author5", 100L, Language.EN, Genre.COMEDY), Locale.getDefault());
+        Book book6 = bookService.create(new Book("book6", "author6", 90L, Language.RU, Genre.DRAMA), Locale.getDefault());
+        Book book7 = bookService.create(new Book("book7", "author7", 50L, Language.UNDEFINED, Genre.TRAGEDY), Locale.getDefault());
+        Book book8 = bookService.create(new Book("book8", "author8", 110L, Language.EN, Genre.COMEDY), Locale.getDefault());
 
         UserService userService = context.getBean(UserService.class);
         User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"), Locale.getDefault());
