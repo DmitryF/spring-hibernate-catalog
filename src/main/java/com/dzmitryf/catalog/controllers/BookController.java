@@ -96,6 +96,30 @@ public class BookController {
     }
 
     /**
+     * Get books by genre
+     * @param genreString
+     * @param locale
+     * @return the books with given genre or {@literal ApiServiceException} if none found
+     * @throws ApiServiceException if books not found
+     */
+    @CrossOrigin
+    @RequestMapping(value = "/genre/{genre}", method = RequestMethod.GET)
+    public @ResponseBody List<Book> getBooksBGenres(@PathVariable("genre") String genreString, Locale locale) throws Exception{
+        Genre genre = Genre.fromString(genreString);
+        try {
+            LOGGER.info(messageSource.getMessage("book.controller.get.book.by.genre", new Object[]{genre}, locale));
+            List<Book> books = bookService.getBookByGenre(genre, locale);
+            LOGGER.info(messageSource.getMessage("book.controller.response.books", new Object[]{books.size()}, locale));
+            return books;
+        } catch (ApiServiceException e){
+            throw e;
+        } catch (Exception e) {
+            LOGGER.error(messageSource.getMessage("book.controller.error.get.book.by.genre", new Object[]{genre}, locale), e);
+            throw new ApiServiceException(messageSource.getMessage("application.error.internal", null, locale));
+        }
+    }
+
+    /**
      * Book controller exception handler
      * @param apiException
      * @return {@link ErrorResponse} with given status from {@link ApiServiceException}

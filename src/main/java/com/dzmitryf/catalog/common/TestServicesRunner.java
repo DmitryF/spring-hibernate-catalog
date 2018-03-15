@@ -15,6 +15,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class TestServicesRunner {
 
@@ -34,10 +35,13 @@ public class TestServicesRunner {
         Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU, Genre.DRAMA), Locale.getDefault());
         Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED, Genre.TRAGEDY), Locale.getDefault());
         Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN, Genre.COMEDY), Locale.getDefault());
-        Book book5 = bookService.create(new Book("book5", "author5", 100L, Language.EN, Genre.COMEDY), Locale.getDefault());
-        Book book6 = bookService.create(new Book("book6", "author6", 90L, Language.RU, Genre.DRAMA), Locale.getDefault());
-        Book book7 = bookService.create(new Book("book7", "author7", 50L, Language.UNDEFINED, Genre.TRAGEDY), Locale.getDefault());
-        Book book8 = bookService.create(new Book("book8", "author8", 110L, Language.EN, Genre.COMEDY), Locale.getDefault());
+
+        Random random = new Random();
+        for (int i = 5; i < 20; i++){
+            Language language = Language.values()[random.nextInt(Language.values().length)];
+            Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
+            bookService.create(new Book("book" + i, "author" + i, 100L + i * 10, language , genre), Locale.getDefault());
+        }
 
         UserService userService = context.getBean(UserService.class);
         User user1 = userService.create(new User("username1", "1234", userRoleGuest, "Brad", "Pitt"), Locale.getDefault());

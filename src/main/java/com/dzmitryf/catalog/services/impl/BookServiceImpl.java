@@ -212,4 +212,19 @@ public class BookServiceImpl implements BookService {
         LOGGER.info(messageSource.getMessage("book.service.found.genres.book", new Object[]{genres.size()}, locale));
         return genres;
     }
+
+    /**
+     * Retrieve books by genre
+     * @param genre book name
+     * @param locale
+     * @return the books with given genre
+     * @throws Exception
+     */
+    @Override
+    public List<Book> getBookByGenre(Genre genre, Locale locale) throws Exception {
+        LOGGER.info(messageSource.getMessage("book.service.get.book.by.genre", new Object[]{genre}, locale));
+        List<Book> books = bookRepository.findBooksByGenre(genre);
+        LOGGER.info(messageSource.getMessage("book.service.found.books", new Object[]{books.size()}, locale));
+        return books;
+    }
 }

@@ -43,4 +43,13 @@ public interface BookService extends CrudService<Book> {
      * @throws Exception
      */
     List<Genre> getAllGenresBooks(Locale locale) throws Exception;
+
+    /**
+     * Retrieve books by genre
+     * @param genre book name
+     * @param locale
+     * @return the books with given genre
+     * @throws Exception
+     */
+    List<Book> getBookByGenre(Genre genre, Locale locale) throws Exception;
 }
