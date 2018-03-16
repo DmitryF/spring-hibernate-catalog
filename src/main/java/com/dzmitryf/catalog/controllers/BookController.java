@@ -2,7 +2,6 @@ package com.dzmitryf.catalog.controllers;
 
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.book.Genre;
-import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.services.BookService;
 import com.dzmitryf.catalog.services.impl.ApiServiceException;
 import org.slf4j.Logger;
@@ -16,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("api/book")
 public class BookController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);

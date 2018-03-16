@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("api/comment")
 public class CommentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
