@@ -46,6 +46,7 @@ public class WebAppMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/app-books/*").setViewName("forward:/index.html");
     }
 
     /**
