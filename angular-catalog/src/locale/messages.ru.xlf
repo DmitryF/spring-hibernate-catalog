@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+
+        <!-- NAV_BAR -->
+        <trans-unit id="navButtonHome" datatype="html">
+        <target>Каталог</target>
+        </trans-unit>
+        <trans-unit id="allBooksButton" datatype="html">
+        <target>Все книги</target>
+        </trans-unit>
+        <!-- NAV BAR -->
+
+        <!-- GENRES MENU -->
+        <trans-unit id="genredrama" datatype="html">
+        <target>Драма</target>
+        </trans-unit>
+        <trans-unit id="genrecomedy" datatype="html">
+        <target>Комедия</target>
+        </trans-unit>
+        <trans-unit id="genretragedy" datatype="html">
+        <target>Трагедия</target>
+        </trans-unit>
+        <!-- /GENRES MENU -->
+
+        <!-- REGISTER CARD -->
+        <trans-unit id="registerCardTitle" datatype="html">
+        <target>Регистрация</target>
+        </trans-unit>
+        <trans-unit id="registerCardDescription" datatype="html">
+        <target>Заполните форму</target>
+        </trans-unit>
+        <trans-unit id="userNameFormControl" datatype="html">
+        <target>Имя пользователя</target>
+        </trans-unit>
+        <trans-unit id="userNameLengthHint" datatype="html">
+        <target>Допустимая длина имени {minLengthUserName, select, 0 {} other {от {{minLengthUserName}}}} {maxLengthUserName, select, 0 {и выше} other {до {{maxLengthUserName}}}} символов</target>
+        </trans-unit>
+        <trans-unit id="passwordFormControl" datatype="html">
+        <target>Пароль</target>
+        </trans-unit>
+        <trans-unit id="passwordPatternHint" datatype="html">
+        <target>Требуется хотя бы один символ из каждой группы: [a-z] [A-Z] [0-9]</target>
+        </trans-unit>
+        <trans-unit id="passwordLengthHint" datatype="html">
+        <target>Допустимая длина пароля {minLengthPassword, select, 0 {} other {от {{minLengthPassword}}}} {maxLengthPassword, select, 0 {и выше} other {до {{maxLengthPassword}}}} символов</target>
+        </trans-unit>
+        <trans-unit id="confirmPasswordFormControl" datatype="html">
+        <target>Повторите пароль</target>
+        </trans-unit>
+        <trans-unit id="emailFormControl" datatype="html">
+        <target>Почтовый адрес</target>
+        </trans-unit>
+        <trans-unit id="emailFormatHint" datatype="html">
+        <target>Неверный формат почтового адреса</target>
+        </trans-unit>
+        <trans-unit id="emailRegisterHint" datatype="html">
+        <target>Вы получите письмо для активации аккаунта</target>
+        </trans-unit>
+        <!-- /REGISTER CARD -->
+
+        <!-- LOGIN CARD -->
+        <trans-unit id="loginCardTitle" datatype="html">       
+        <target>Вход в учётную запись</target>
+        </trans-unit>
+        <trans-unit id="loginCardDescription" datatype="html">        
+        <target>Заполните форму</target>
+        </trans-unit>
+        <!-- /LOGIN CARD -->
+
+        <!-- AUTHORIZATION -->
+        <trans-unit id="signUp" datatype="html">
+        <target>Зарегистрироваться</target>
+        </trans-unit>
+        <trans-unit id="signIn" datatype="html">
+        <target>Войти</target>
+        </trans-unit>
+        <trans-unit id="logout" datatype="html">
+        <target>Выйти</target>
+        </trans-unit>
+        <!-- /AUTHORIZATION -->
+
+        <!-- SERVER RESPONSE -->
+        <trans-unit id="serverError" datatype="html">
+        <target>Сервер не отвечает</target>
+        </trans-unit>
+        <!-- /SERVER RESPONSE -->
+
+        <!-- VALIDATION -->
+        <trans-unit id="requiredHint" datatype="html">
+        <target>Поле обязательно для заполнения</target>
+        </trans-unit>
+
+        <trans-unit id="notEqualsHint" datatype="html">
+        <target>Поле не совпадает</target>
+        </trans-unit>
+        <!-- /VALIDATION -->
+
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+
+        <!-- NAV_BAR -->
+        <trans-unit id="navButtonHome" datatype="html">        
+        <target>Catalog</target>
+        </trans-unit>
+        <trans-unit id="allBooksButton" datatype="html">        
+        <target>All books</target>
+        </trans-unit>
+        <!-- NAV BAR -->
+
+        <!-- GENRES MENU -->
+        <trans-unit id="genredrama" datatype="html">        
+        <target>Drama</target>
+        </trans-unit>
+        <trans-unit id="genrecomedy" datatype="html">        
+        <target>Comedy</target>
+        </trans-unit>
+        <trans-unit id="genretragedy" datatype="html">        
+        <target>Tragedy</target>
+        </trans-unit>
+        <!-- /GENRES MENU -->
+
+    	<!-- REGISTER CARD -->
+    	<trans-unit id="registerCardTitle" datatype="html">       
+        <target>Sign-up</target>
+    	</trans-unit>
+    	<trans-unit id="registerCardDescription" datatype="html">        
+        <target>Fill the form</target>
+    	</trans-unit>
+    	<trans-unit id="userNameFormControl" datatype="html">        
+        <target>Username</target>
+    	</trans-unit>
+    	<trans-unit id="userNameLengthHint" datatype="html">        
+        <target>The allowed name length {minLengthUserName, select, 0 {} other {of {{minLengthUserName}}}} {maxLengthUserName, select, 0 {or more} other {to {{maxLengthUserName}}}} characters</target>
+    	</trans-unit>
+    	<trans-unit id="passwordFormControl" datatype="html">        
+        <target>Password</target>
+    	</trans-unit>
+    	<trans-unit id="passwordPatternHint" datatype="html">        
+        <target>At least one character is required from each group: [a-z] [A-Z] [0-9]</target>
+    	</trans-unit>
+    	<trans-unit id="passwordLengthHint" datatype="html">        
+        <target>The allowed password length {minLengthPassword, select, 0 {} other {of {{minLengthPassword}}}} {maxLengthPassword, select, 0 {or more} other {to {{maxLengthPassword}}}} characters</target>
+    	</trans-unit>
+    	<trans-unit id="confirmPasswordFormControl" datatype="html">        
+        <target>Confirm password</target>
+    	</trans-unit>
+    	<trans-unit id="emailFormControl" datatype="html">        
+        <target>Email</target>
+    	</trans-unit>
+    	<trans-unit id="emailFormatHint" datatype="html">        
+        <target>Invalid email format</target>
+    	</trans-unit>
+    	<trans-unit id="emailRegisterHint" datatype="html">        
+        <target>You will receive an email to activate your account</target>
+    	</trans-unit>
+    	<!-- /REGISTER CARD -->
+
+        <!-- LOGIN CARD -->
+        <trans-unit id="loginCardTitle" datatype="html">       
+        <target>Login</target>
+        </trans-unit>
+        <trans-unit id="loginCardDescription" datatype="html">        
+        <target>Fill the form</target>
+        </trans-unit>
+        <!-- /LOGIN CARD -->
+
+    	<!-- AUTHORIZATION -->
+    	<trans-unit id="signUp" datatype="html">        
+        <target>Register</target>
+    	</trans-unit>
+    	<trans-unit id="signIn" datatype="html">        
+        <target>Login</target>
+    	</trans-unit>
+    	<trans-unit id="logout" datatype="html">        
+        <target>Logout</target>
+    	</trans-unit>
+    	<!-- /AUTHORIZATION -->
+
+    	<!-- SERVER RESPONSE -->
+    	<trans-unit id="serverError" datatype="html">
+        <target>Server not response</target>
+    	</trans-unit>
+    	<!-- /SERVER RESPONSE -->
+
+    	<!-- VALIDATION -->
+    	<trans-unit id="requiredHint" datatype="html">        
+        <target>Required fields</target>
+    	</trans-unit>
+
+    	<trans-unit id="notEqualsHint" datatype="html">        
+        <target>Field does not match</target>
+    	</trans-unit>
+    	<!-- /VALIDATION -->
+
+    </body>
+  </file>
+</xliff>

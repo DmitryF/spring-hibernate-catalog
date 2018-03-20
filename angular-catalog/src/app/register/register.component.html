@@ -1,0 +1,115 @@
+<div>
+
+	<form class="register-card" 
+		(ngSubmit)="onSubmit()"
+		[formGroup]="registerForm">
+
+	<!-- TOOLBAR -->		
+	<mat-toolbar color="primary">
+	<mat-toolbar-row>		
+		<mat-icon class="tool-bar-item">person_add</mat-icon>
+		<span class="tool-bar-item" i18n="@@registerCardTitle">Sign-up</span>
+	</mat-toolbar-row>			
+	</mat-toolbar>
+	<!-- /TOOLBAR -->		
+
+	<!-- REGISTER CARD -->	
+	<mat-card>
+		
+		<!-- HEADER -->
+		<mat-card-header>			
+		<div mat-card-avatar class="control-full-width">		
+			<mat-icon class="register-card-header-item" color="primary">note</mat-icon>
+			<span class="register-card-header-item" i18n="@@registerCardDescription">Fill the form</span>				
+		</div>			
+		</mat-card-header>
+		<!-- /HEADER -->
+		
+		<!-- CONTENT -->
+		<mat-card-content class="register-card-content" >
+
+			<!-- USERNAME -->
+			<mat-form-field >
+				<div >
+				<input matInput i18n-placeholder="@@userNameFormControl" placeholder="User name" required 
+						minlength="{{minLengthUserName}}" maxlength="{{maxLengthUserName}}"
+						formControlName="userName"
+						[(ngModel)]="newUser.userName"
+			        	[errorStateMatcher]="formControlMatcher">	        				    
+			        </div>
+			    <mat-error i18n="@@userNameLengthHint" *ngIf="isErrorActive(userNameFormControl, LENGTH_ERROR)">Max symbols count</mat-error> 
+			    <mat-error i18n="@@requiredHint" *ngIf="isErrorActive(userNameFormControl, REQUIRED_ERROR)">Required</mat-error>		    
+			</mat-form-field>
+			<!-- /USERNAME -->
+
+			<!-- USER PASSWORD -->
+			<mat-form-field>
+				<input matInput i18n-placeholder="@@passwordFormControl" placeholder="User password 1"  required
+						minlength="{{minLengthPassword}}" maxlength="{{maxLengthPassword}}" 
+						formControlName="password"			
+						[(ngModel)]="newUser.password"			
+			        	[errorStateMatcher]="formControlMatcher"
+			        	[type]="hidePassword ? 'password' : 'text'">		
+			    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>	    
+			    <mat-error i18n="@@passwordPatternHint" *ngIf="isErrorActive(userPasswordFormControl, PASSWORD_ERROR)">Required</mat-error><mat-error i18n="@@passwordLengthHint" *ngIf="isErrorActive(userPasswordFormControl, LENGTH_ERROR)">Length password</mat-error>		
+			    <mat-error i18n="@@requiredHint" *ngIf="isErrorActive(userPasswordFormControl, REQUIRED_ERROR)">Required</mat-error>		
+			</mat-form-field>
+			<!-- /USER PASSWORD -->
+
+			<!-- USER CONFIRM PASSWORD -->
+			<mat-form-field>
+				<input matInput i18n-placeholder="@@confirmPasswordFormControl" placeholder="User password 2"  required
+						formControlName="passwordConfirm"		
+			        	[errorStateMatcher]="formControlMatcher"
+			        	[type]="hidePassword ? 'password' : 'text'">
+			    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>	
+			    <mat-error i18n="@@passwordPatternHint" *ngIf="isErrorActive(userPasswordConfirmFormControl, PASSWORD_ERROR)">Required</mat-error><mat-error i18n="@@passwordLengthHint" *ngIf="isErrorActive(userPasswordConfirmFormControl, LENGTH_ERROR)">Length password</mat-error>					    
+			    <mat-error i18n="@@requiredHint" *ngIf="isErrorActive(userPasswordConfirmFormControl, REQUIRED_ERROR)">Required</mat-error>
+			    <mat-error i18n="@@notEqualsHint" *ngIf="isErrorActive(userPasswordConfirmFormControl, EQUALS_ERROR)">Not equals</mat-error>		
+			</mat-form-field>
+			<!-- /USER CONFIRM PASSWORD -->
+
+			<!-- EMAIL -->
+			<mat-form-field>
+				<input matInput i18n-placeholder="@@emailFormControl" placeholder="Email" 
+						formControlName="email"	
+						[(ngModel)]="newUser.email"	
+						[errorStateMatcher]="formControlMatcher" required>
+			    <mat-icon matSuffix>email</mat-icon>       
+			    <mat-hint i18n="@@emailRegisterHint">Errors appear instantly!</mat-hint>
+			    <mat-error i18n="@@emailFormatHint" *ngIf="isErrorActive(emailFormControl, EMAIL_ERROR)">Wrond format</mat-error>
+			    <mat-error i18n="@@requiredHint" *ngIf="isErrorActive(emailFormControl, REQUIRED_ERROR)">Required</mat-error>
+			</mat-form-field>
+			<!-- /EMAIL -->
+
+			<!-- PROGRESS -->
+			
+			<div *ngIf="isInProgress">
+				<br/>
+				<mat-progress-bar mode="indeterminate"></mat-progress-bar>					
+			</div>	
+			<!-- /PROGRESS -->
+
+		</mat-card-content>
+		<!-- /CONTENT -->
+
+		<!-- ACTIONS -->
+		<mat-card-actions>					
+			<mat-toolbar-row>
+				<span class="spacer">	
+					<div class="server-message" *ngIf="isResponseError">
+						<mat-icon class="div-row-item" color="warn">error</mat-icon>
+						<mat-error class="div-row-item" i18n="@@serverError">Wrond format</mat-error>						
+					</div>	
+				</span>				
+				<button i18n="@@signUp" mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid || isInProgress">Sign-up</button>	
+			</mat-toolbar-row>
+		</mat-card-actions>
+		<!-- /ACTIONS -->
+	
+		</mat-card>	
+	<!-- /REGISTER CARD -->		
+		
+	</form>
+
+</div>

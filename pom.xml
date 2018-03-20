@@ -29,7 +29,7 @@
 
         <!-- Tolmcat -->
         <tomcat.http.port>8090</tomcat.http.port>
-        <tomcat.project.path>/catalog</tomcat.project.path>
+        <tomcat.project.path>/</tomcat.project.path>
 
         <!-- Jackson -->
         <jackson.version>2.9.1</jackson.version>
@@ -40,10 +40,10 @@
         <maven-war-plugin-version>2.2</maven-war-plugin-version>
 
         <!-- Angular -->
-        <angular.project.path></angular.project.path>
+        <angular.project.path>angular-catalog</angular.project.path>
 
         <!-- Nodejs -->
-        <node.install.directory></node.install.directory>
+        <node.install.directory>C:\Program Files\</node.install.directory>
 
     </properties>
 

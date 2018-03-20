@@ -1,0 +1,11 @@
+<mat-nav-list style="padding: 0px; height: 100%; background: dodgerblue; z-index: 0 !important">
+  <mat-list-item *ngFor="let genre of genres" (click)="onGenreClick(genre)">  	
+    <div style="padding-left: 15px; color: #f1f1f1">
+    	<div i18n="@@genredrama" 	*ngIf="genre == genres[0]">{{genre}}</div>
+    	<div i18n="@@genrecomedy" 	*ngIf="genre == genres[1]">{{genre}}</div>
+    	<div i18n="@@genretragedy" 	*ngIf="genre == genres[2]">{{genre}}</div>
+    </div>    
+  </mat-list-item>
+</mat-nav-list>
+
+

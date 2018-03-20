@@ -1,0 +1,57 @@
+mat-card {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  height: inherit;
+  width: inherit;
+  margin: 10px;
+  padding: 10px;
+}
+
+.book-container {
+  height: 100%;
+  width: 100%;
+ // background: aqua;
+}
+
+.book-cover {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.book-description-container {
+  padding-left: 16px;
+}
+
+.book-name {
+  margin: 0px;
+}
+
+.book-field-description-container {
+  font-weight: normal;
+  font-size: 14px;
+  padding-top: 5px;
+  margin: 0px; 
+}
+
+.book-field-description-info {
+  color: gray;
+  padding-top: 4px;
+}
+
+.book-field-description-value {
+  color: black;
+  padding-left: 4px;
+}
+
+.book-year {
+  margin: 0px;
+}
+
+.book-count-pages {
+  margin: 0px;
+}

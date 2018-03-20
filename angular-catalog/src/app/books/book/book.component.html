@@ -1,0 +1,27 @@
+  <mat-card>
+    <div class="book-container" layout="row">
+      <div flex="35" layout="row">
+      <div class="book-cover" [style.background-image]="coverImage"></div>
+      </div>
+
+      <div class="book-description-container" flex="65" layout="column" layout-align="start start">
+        <h2 class="book-name">{{book.name}}</h2>
+        <div layout="column" class="book-field-description-container">
+          <div layout="row" class="book-field-description-info">
+            <div>Author:</div>
+            <div class="book-field-description-value">{{book.authorName}}</div>
+          </div>             
+          <div layout="row" class="book-field-description-info">
+            <div>Genre:</div>
+            <div class="book-field-description-value">{{book.genre}}</div>
+          </div> 
+          <div layout="row" class="book-field-description-info">
+            <div>Pages:</div>
+            <div class="book-field-description-value">{{book.countPages}}</div>
+          </div> 
+        </div>        
+      </div>
+    </div>
+  </mat-card>
+  <br/>
+

@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="nav-bar-container mat-elevation-z4">
+	<mat-toolbar-row>
+
+		<button class="nav-bar-button" mat-button [routerLink]="['/app-books', 'all']" routerLinkActive="active"><h1 i18n="@@navButtonHome">Catalog</h1></button>
+		<span class="nav-bar-spacer">
+      <button class="nav-bar-button language-button" mat-button>
+      <mat-select [(value)]="selectedLanguage" (change)="onLanguageChange($event.value)">
+        <mat-option value="{{language}}" *ngFor="let language of languages;">{{language}}</mat-option>
+      </mat-select>
+			</button>
+			<button i18n="@@allBooksButton" class="nav-bar-button" mat-button [routerLink]="['/app-books', 'all']" routerLinkActive="active">All books</button>
+		</span>
+
+		<div>
+
+      <button i18n="@@signUp" class="nav-bar-button" mat-button routerLink="/app-register" routerLinkActive="active"
+					*ngIf="!getLoginService().isLogined()">Sign-up</button>
+			<button i18n=@@signIn class="nav-bar-button" mat-button routerLink="/app-login" routerLinkActive="active"
+					*ngIf="!getLoginService().isLogined()">Sign-in
+			</button>
+			<button i18n="@@logout" class="nav-bar-button" mat-button routerLink="/" routerLinkActive="active"
+					(click)="logout()"
+					*ngIf="getLoginService().isLogined()">Logout
+			</button>
+		</div>
+
+	</mat-toolbar-row>
+
+</mat-toolbar>

@@ -1,0 +1,13 @@
+<div class="books-container">
+
+  <mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile
+      *ngFor="let book of books"
+      [colspan]="1"
+      [rowspan]="1"
+      class="book-container">
+      <app-book [book]="book"></app-book>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>

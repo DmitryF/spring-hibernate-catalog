@@ -21,6 +21,7 @@ classes/
 buildSrc/build
 /spring-*/build
 /src/asciidoc/build
+/src/main/webapp
 target/
 
 # Eclipse artifacts, including WTP generated manifests
@@ -37,3 +38,47 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+
+# Angular
+
+# compiled output
+angular-catalog/dist
+angular-catalog/tmp
+angular-catalog/out-tsc
+
+# dependencies
+angular-catalog/node_modules
+angular-catalog/node
+
+# IDEs and editors
+angular-catalog/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+angular-catalog/.sass-cache
+angular-catalog/connect.lock
+angular-catalog/coverage
+angular-catalog/libpeerconnection.log
+npm-debug.log
+testem.log
+angular-catalog/typings
+
+# e2e
+angular-catalog/e2e/*.js
+angular-catalog/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
