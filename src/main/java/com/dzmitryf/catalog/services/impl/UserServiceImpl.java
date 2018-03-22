@@ -1,5 +1,7 @@
 package com.dzmitryf.catalog.services.impl;
 
+import com.dzmitryf.catalog.model.base.SecurityRole;
+import com.dzmitryf.catalog.model.user.UserRole;
 import com.dzmitryf.catalog.repositories.UserRepository;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.services.UserRoleService;
@@ -17,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -254,6 +257,9 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     private void loadUserRole(User user, Locale locale) throws Exception {
-        user.getUserRole().getSecurityRole();
+        Optional<User> userRoleChecker = Optional.ofNullable(user);
+        userRoleChecker
+            .flatMap(userIter -> Optional.ofNullable(userIter.getUserRole()))
+            .flatMap(userRole -> Optional.ofNullable(userRole.getSecurityRole()));
     }
 }
