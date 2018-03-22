@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api")
 public class CatalogController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CatalogController.class);
