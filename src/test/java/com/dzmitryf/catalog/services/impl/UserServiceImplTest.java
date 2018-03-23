@@ -20,32 +20,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {UserServiceImplTest.UserServiceImplTestContextConfiguration.class})
+@ContextConfiguration(classes = { ServiceImplTestBaseConfiguration.class })
 public class UserServiceImplTest {
-
-    @Configuration
-    static class UserServiceImplTestContextConfiguration{
-
-        @Bean
-        public UserService userService(){
-            return (UserService) new UserServiceImpl();
-        }
-
-        @Bean
-        public UserRepository userRepository(){
-            return mock(UserRepository.class);
-        }
-
-        @Bean
-        public MessageSource messageSource(){
-            return mock(MessageSource.class);
-        }
-
-        @Bean
-        public EntityManager entityManager(){
-            return mock(EntityManager.class);
-        }
-    }
 
     @Autowired
     private UserService userService;
@@ -60,5 +36,6 @@ public class UserServiceImplTest {
 
         User found = userService.getUserByUsername(user.getUserName(), Locale.getDefault());
         assertNotNull(found);
+
     }
 }
