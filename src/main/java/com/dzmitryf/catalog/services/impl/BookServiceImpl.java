@@ -1,10 +1,9 @@
 package com.dzmitryf.catalog.services.impl;
 
+import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.book.Genre;
 import com.dzmitryf.catalog.model.book.GenreEnum;
-import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.repositories.BookRepository;
-import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +15,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -166,7 +163,7 @@ public class BookServiceImpl implements BookService {
                     HttpStatus.PRECONDITION_FAILED);
         }
         try {
-            loadGenre(book);
+            loadGenre(book, locale);
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("book.service.error.get.book.by.name", null, locale), e);
             throw e;
@@ -188,7 +185,7 @@ public class BookServiceImpl implements BookService {
         List<Book> books = bookRepository.findBooksByCountPagesDesc();
         try {
             for (Book book : books) {
-                loadGenre(book);
+                loadGenre(book, locale);
             }
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("book.service.error.get.book.by.count.pages", null, locale), e);
@@ -211,7 +208,7 @@ public class BookServiceImpl implements BookService {
         List<Book> books = bookRepository.findAll();
         try {
             for (Book book : books) {
-                loadGenre(book);
+                loadGenre(book, locale);
             }
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("book.service.error.get.book.all", null, locale), e);
@@ -235,7 +232,7 @@ public class BookServiceImpl implements BookService {
         List<Book> books = bookRepository.findBooksByGenre(genre);
         try {
             for (Book book : books) {
-                loadGenre(book);
+                loadGenre(book, locale);
             }
         } catch (Exception e) {
             LOGGER.error(messageSource.getMessage("book.service.error.get.book.by.genre", null, locale), e);
@@ -248,13 +245,20 @@ public class BookServiceImpl implements BookService {
     /**
      * Load genre for book
      * @param book
+     * @param locale
      * @throws Exception
      */
     @Transactional
-    private void loadGenre(Book book) throws Exception {
+    private void loadGenre(Book book, Locale locale) throws Exception {
         Optional<Book> bookGenreChecker = Optional.ofNullable(book);
         bookGenreChecker
                 .flatMap(bookIter -> Optional.ofNullable(bookIter.getGenre()))
-                .flatMap(genreIter -> Optional.ofNullable(genreIter.getName()));
+                .flatMap(genreIter -> {
+                    Optional<GenreEnum> genreEnumOption = Optional.ofNullable(genreIter.getName());
+                    if (genreEnumOption.isPresent()) {
+                        genreIter.setTranslate(messageSource.getMessage("genre." + genreIter.getName().name(), null, locale));
+                    }
+                    return genreEnumOption;
+                });
     }
 }
