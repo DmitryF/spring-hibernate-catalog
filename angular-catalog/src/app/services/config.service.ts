@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ConfigService {
 
-  private _api_url = '/api';//'http://localhost:8090/catalog'
+  private _api_url = environment.production ? '/api' : 'http://localhost:8090/api';
 
   private _refresh_token_url = this._api_url + '/refresh';
 
@@ -28,7 +28,7 @@ export class ConfigService {
 
   private _get_books_by_genre_url = this._api_url + '/book/genre/';
 
-  private _get_genres_book_url = this._api_url + '/book/genres';
+  private _get_genres_book_url = this._api_url + '/genre/all';
 
   get books_url(): string {
     return this._get_books_url;
