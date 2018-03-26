@@ -2,6 +2,7 @@ package com.dzmitryf.catalog.services;
 
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.book.Genre;
+import com.dzmitryf.catalog.model.book.GenreEnum;
 
 import java.util.List;
 import java.util.Locale;
@@ -37,16 +38,8 @@ public interface BookService extends CrudService<Book> {
     List<Book> getAllBooks(Locale locale) throws Exception;
 
     /**
-     * Retrieves all genres of books
-     * @param locale
-     * @return genres list
-     * @throws Exception
-     */
-    List<Genre> getAllGenresBooks(Locale locale) throws Exception;
-
-    /**
      * Retrieve books by genre
-     * @param genre book name
+     * @param genre
      * @param locale
      * @return the books with given genre
      * @throws Exception
