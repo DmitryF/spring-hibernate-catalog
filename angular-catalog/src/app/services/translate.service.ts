@@ -20,8 +20,7 @@ export class TranslateService {
           break;
         }
       }
-    }
-    console.log(this.currentLanguage);
+    }    
     return this.currentLanguage;
   }
 

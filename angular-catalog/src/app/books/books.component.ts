@@ -28,8 +28,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriberGenre = this.activateRouter.params.subscribe(params => {
-      this.currentGenre = params['genre'];
-      console.log(this.currentGenre);
+      this.currentGenre = params['genre'];      
       if (this.currentGenre === 'all') {
         this.bookService.getBooks().subscribe(data => {
           if (data) {

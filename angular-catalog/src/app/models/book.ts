@@ -1,3 +1,6 @@
+import {Genre} from '../models/genre';
+
+
 export class Book {
 
   public id: string;
@@ -6,4 +9,5 @@ export class Book {
   public countPages: Number;
   public description: string;
   public language: string;
+  public genre: Genre;
 }

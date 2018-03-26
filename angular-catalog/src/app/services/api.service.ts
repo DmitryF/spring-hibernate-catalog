@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'rxjs/add/observable/throw';
 import { serialize } from '../shared/utilities/serialize';
+import {TranslateService} from '../services/translate.service';
 
 export enum RequestMethod {
   Get = 'GET',
@@ -20,7 +21,8 @@ export class ApiService {
 
   headers = new HttpHeaders({
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept-Language': TranslateService.getLocale()
   });
 
   constructor( private http: HttpClient) { }

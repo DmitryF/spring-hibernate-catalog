@@ -20,7 +20,6 @@ export class NavBarComponent implements OnInit{
 
 	constructor (private loginService: LoginService) {
 	  this.languages = TranslateService.getLanguages();
-	  console.log(this.languages);
 	}
 
   onLanguageChange(event: any) {
