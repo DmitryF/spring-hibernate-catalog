@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {selector} from 'rxjs/operator/publish';
 import {BookService} from '../services';
+import {Genre} from '../models/genre';
 
 @Component({
   selector: 'app-genres',
@@ -12,7 +13,7 @@ import {BookService} from '../services';
 })
 export class GenresComponent implements OnInit {
 
-  genres: string[];
+  genres: Genre[];
 
   constructor(private bookService: BookService) {
     bookService.getGenres().subscribe(data => {
@@ -25,7 +26,7 @@ export class GenresComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onGenreClick(genre: string) {
+  onGenreClick(genre: string) {    
     this.bookService.selectGenre(genre);
   }
 
