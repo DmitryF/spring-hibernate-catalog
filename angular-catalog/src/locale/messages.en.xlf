@@ -24,6 +24,24 @@
         </trans-unit>
         <!-- /GENRES MENU -->
 
+        <!-- BOOK -->
+        <trans-unit id="author" datatype="html">        
+        <target>Author</target>
+        </trans-unit>
+        <trans-unit id="genre" datatype="html">        
+        <target>Genre</target>
+        </trans-unit>
+        <trans-unit id="countPages" datatype="html">        
+        <target>Pages</target>
+        </trans-unit>
+        <trans-unit id="description" datatype="html">        
+        <target>Description</target>
+        </trans-unit>
+        <trans-unit id="language" datatype="html">        
+        <target>Language</target>
+        </trans-unit>
+        <!-- /BOOK -->
+
     	<!-- REGISTER CARD -->
     	<trans-unit id="registerCardTitle" datatype="html">       
         <target>Sign-up</target>

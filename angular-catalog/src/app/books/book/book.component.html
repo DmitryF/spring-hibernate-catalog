@@ -8,15 +8,19 @@
         <h2 class="book-name">{{book.name}}</h2>
         <div layout="column" class="book-field-description-container">
           <div layout="row" class="book-field-description-info">
-            <div>Author:</div>
+            <div i18n="@@author" >Author:</div>
             <div class="book-field-description-value">{{book.authorName}}</div>
           </div>             
           <div layout="row" class="book-field-description-info">
-            <div>Genre:</div>
+            <div i18n="@@genre" >Genre:</div>
             <div class="book-field-description-value">{{book.genre.translate}}</div>
           </div> 
           <div layout="row" class="book-field-description-info">
-            <div>Pages:</div>
+            <div i18n="@@language">Language:</div>
+            <div class="book-field-description-value">{{book.language}}</div>
+          </div> 
+          <div layout="row" class="book-field-description-info">
+            <div i18n="@@countPages">Pages:</div>
             <div class="book-field-description-value">{{book.countPages}}</div>
           </div> 
         </div>        
