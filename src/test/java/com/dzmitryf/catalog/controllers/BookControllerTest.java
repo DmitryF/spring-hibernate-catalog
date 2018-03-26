@@ -3,6 +3,7 @@ package com.dzmitryf.catalog.controllers;
 import com.dzmitryf.catalog.model.base.Language;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.book.Genre;
+import com.dzmitryf.catalog.model.book.GenreEnum;
 import com.dzmitryf.catalog.services.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -55,10 +56,10 @@ public class BookControllerTest {
         assertNotNull(objectMapper);
 
         List<Book> books = new ArrayList<>();
-        books.add(new Book("book1", "author1", 100L, Language.EN, Genre.COMEDY));
-        books.add(new Book("book2", "author2", 100L, Language.EN, Genre.COMEDY));
-        books.add(new Book("book3", "author3", 100L, Language.EN, Genre.COMEDY));
-        books.add(new Book("book4", "author4", 100L, Language.EN, Genre.COMEDY));
+        books.add(new Book("book1", "author1", 100L, Language.EN, new Genre(GenreEnum.comedy, "")));
+        books.add(new Book("book2", "author2", 100L, Language.EN, new Genre(GenreEnum.comedy, "")));
+        books.add(new Book("book3", "author3", 100L, Language.EN, new Genre(GenreEnum.comedy, "")));
+        books.add(new Book("book4", "author4", 100L, Language.EN, new Genre(GenreEnum.comedy, "")));
         when(bookService.getAllBooks(any(Locale.class))).thenReturn(books);
 
         mockMvc.perform(get("/api/book/all")

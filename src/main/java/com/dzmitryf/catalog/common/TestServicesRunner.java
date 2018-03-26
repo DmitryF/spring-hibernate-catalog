@@ -3,16 +3,15 @@ package com.dzmitryf.catalog.common;
 import com.dzmitryf.catalog.model.base.Language;
 import com.dzmitryf.catalog.model.base.SecurityRole;
 import com.dzmitryf.catalog.model.book.Genre;
+import com.dzmitryf.catalog.model.book.GenreEnum;
 import com.dzmitryf.catalog.model.user.User;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.comment.Comment;
 import com.dzmitryf.catalog.model.user.UserRole;
-import com.dzmitryf.catalog.services.BookService;
-import com.dzmitryf.catalog.services.CommentService;
-import com.dzmitryf.catalog.services.UserRoleService;
-import com.dzmitryf.catalog.services.UserService;
+import com.dzmitryf.catalog.services.*;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -25,21 +24,33 @@ public class TestServicesRunner {
 
     private static void test(AnnotationConfigWebApplicationContext context) throws Exception{
 
+        GenreService genreService = context.getBean(GenreService.class);
+        Genre genreUndefined = genreService.create(new Genre(GenreEnum.undefined, ""), Locale.getDefault());
+        Genre genreDrama = genreService.create(new Genre(GenreEnum.drama, ""), Locale.getDefault());
+        Genre genreComedy = genreService.create(new Genre(GenreEnum.comedy, ""), Locale.getDefault());
+        Genre genreTragedy = genreService.create(new Genre(GenreEnum.tragedy, ""), Locale.getDefault());
+
+        List<Genre> genres = new ArrayList<>();
+        genres.add(genreUndefined);
+        genres.add(genreDrama);
+        genres.add(genreComedy);
+        genres.add(genreTragedy);
+
         UserRoleService userRoleService = context.getBean(UserRoleService.class);
         UserRole userRoleGuest = userRoleService.create(new UserRole(SecurityRole.ROLE_GUEST), Locale.getDefault());
         UserRole userRoleUser = userRoleService.create(new UserRole(SecurityRole.ROLE_USER), Locale.getDefault());
         UserRole userRoleAdmin = userRoleService.create(new UserRole(SecurityRole.ROLE_ADMIN), Locale.getDefault());
 
         BookService bookService = context.getBean(BookService.class);
-        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN, Genre.COMEDY), Locale.getDefault());
-        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU, Genre.DRAMA), Locale.getDefault());
-        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED, Genre.TRAGEDY), Locale.getDefault());
-        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN, Genre.COMEDY), Locale.getDefault());
+        Book book1 = bookService.create(new Book("book1", "author1", 100L, Language.EN, genreComedy), Locale.getDefault());
+        Book book2 = bookService.create(new Book("book2", "author2", 90L, Language.RU, genreDrama), Locale.getDefault());
+        Book book3 = bookService.create(new Book("book3", "author2", 50L, Language.UNDEFINED, genreTragedy), Locale.getDefault());
+        Book book4 = bookService.create(new Book("book4", "author4", 110L, Language.EN, genreComedy), Locale.getDefault());
 
         Random random = new Random();
         for (int i = 5; i < 20; i++){
             Language language = Language.values()[random.nextInt(Language.values().length)];
-            Genre genre = Genre.values()[random.nextInt(Genre.values().length)];
+            Genre genre = genres.get(random.nextInt(GenreEnum.values().length));
             bookService.create(new Book("book" + i, "author" + i, 100L + i * 10, language , genre), Locale.getDefault());
         }
 
