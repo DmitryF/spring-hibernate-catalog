@@ -3,6 +3,7 @@ package com.dzmitryf.catalog.controllers;
 import com.dzmitryf.catalog.model.book.Book;
 import com.dzmitryf.catalog.model.book.Genre;
 import com.dzmitryf.catalog.services.BookService;
+import com.dzmitryf.catalog.services.GenreService;
 import com.dzmitryf.catalog.services.impl.ApiServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +12,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("api/book")
@@ -25,6 +26,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private GenreService genreService;
 
     /**
      * Get all books
@@ -70,42 +74,17 @@ public class BookController {
     }
 
     /**
-     * Get all genres of books
-     * @param locale
-     * @return the all genres of books or {@literal ApiServiceException} if none found
-     * @throws ApiServiceException if book not found
-     */
-    @CrossOrigin
-    @RequestMapping(value = "genres", method = RequestMethod.GET)
-    public @ResponseBody List<String> getGenresBooks(Locale locale) throws Exception{
-        try {
-            LOGGER.info(messageSource.getMessage("book.controller.get.genres.book", null, locale));
-            List<String> genres = bookService.getAllGenresBooks(locale)
-                    .stream()
-                    .map(genre -> genre.toString().toLowerCase())
-                    .collect(Collectors.toList());
-            LOGGER.info(messageSource.getMessage("book.controller.response.genres", new Object[]{genres.size()}, locale));
-            return genres;
-        } catch (ApiServiceException e){
-            throw e;
-        } catch (Exception e) {
-            LOGGER.error(messageSource.getMessage("book.controller.error.get.genres.book", null, locale), e);
-            throw new ApiServiceException(messageSource.getMessage("application.error.internal", null, locale));
-        }
-    }
-
-    /**
      * Get books by genre
-     * @param genreString
+     * @param genreName
      * @param locale
      * @return the books with given genre or {@literal ApiServiceException} if none found
      * @throws ApiServiceException if books not found
      */
     @CrossOrigin
     @RequestMapping(value = "/genre/{genre}", method = RequestMethod.GET)
-    public @ResponseBody List<Book> getBooksBGenres(@PathVariable("genre") String genreString, Locale locale) throws Exception{
-        Genre genre = Genre.fromString(genreString);
+    public @ResponseBody List<Book> getBooksByGenres(@PathVariable("genre") String genreName, Locale locale) throws Exception{
         try {
+            Genre genre = genreService.getGenreByName(genreName, locale);
             LOGGER.info(messageSource.getMessage("book.controller.get.book.by.genre", new Object[]{genre}, locale));
             List<Book> books = bookService.getBookByGenre(genre, locale);
             LOGGER.info(messageSource.getMessage("book.controller.response.books", new Object[]{books.size()}, locale));
@@ -113,7 +92,7 @@ public class BookController {
         } catch (ApiServiceException e){
             throw e;
         } catch (Exception e) {
-            LOGGER.error(messageSource.getMessage("book.controller.error.get.book.by.genre", new Object[]{genre}, locale), e);
+            LOGGER.error(messageSource.getMessage("book.controller.error.get.book.by.genre", new Object[]{genreName}, locale), e);
             throw new ApiServiceException(messageSource.getMessage("application.error.internal", null, locale));
         }
     }
