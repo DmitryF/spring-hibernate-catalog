@@ -29,100 +29,113 @@ export class RegisterComponent implements OnInit {
   minLengthUserName = 3;
   maxLengthUserName = 16;
 
-	minLengthPassword = 6;
-	maxLengthPassword = 24;
+  minLengthPassword = 6;
+  maxLengthPassword = 24;
 
-	newUser: User;
+  newUser: User;
 
-	isInProgress = false;
-	isResponseError = false;
-	registered = false;
-	hidePassword = true;
+  isInProgress = false;
+  isResponseError = false;
+  registered = false;
+  hidePassword = true;
 
-	registerForm: FormGroup;
+  registerForm: FormGroup;
+  userNameFormControl: FormControl;
+  userPasswordFormControl: FormControl;
+  userPasswordConfirmFormControl: FormControl;
+  emailFormControl: FormControl;
+  formControlMatcher: ErrorStateMatcher;
 
-	userNameFormControl: FormControl;
-	userPasswordFormControl: FormControl;
-	userPasswordConfirmFormControl: FormControl;
-	emailFormControl: FormControl;
+  constructor(private registerService: RegisterService) {
 
-	formControlMatcher: ErrorStateMatcher;
+  }
 
-	constructor(private registerService: RegisterService) {
+  ngOnInit() {
+	this.newUser = new User();
+	this.createFormControls();
+	this.createForm();
+  }
 
-	}
+  /**
+   * Create form controls
+   */
+  private createFormControls() {
+	this.formControlMatcher = new RegisterFormErrorStateMatcher();
 
-	ngOnInit() {
-		this.newUser = new User();
-		this.createFormControls();
-		this.createForm();
-	}
+	this.userNameFormControl = new FormControl('', [
+	  Validators.required,
+	  RegisterValidator.minMaxLength(this.minLengthUserName, this.maxLengthUserName)
+	]);
 
-	private createFormControls() {
+	this.userPasswordFormControl = new FormControl('', [
+	  Validators.required,
+	  RegisterValidator.minMaxLength(this.minLengthPassword, this.maxLengthPassword),
+	  RegisterValidator.lettersLowerCase,
+	  RegisterValidator.lettersUpperCase,
+	  RegisterValidator.digits
+	]);
 
-		this.formControlMatcher = new RegisterFormErrorStateMatcher();
+	this.userPasswordConfirmFormControl = new FormControl('', [
+	  Validators.required,
+	  RegisterValidator.minMaxLength(this.minLengthPassword, this.maxLengthPassword),
+	  RegisterValidator.lettersLowerCase,
+	  RegisterValidator.lettersUpperCase,
+	  RegisterValidator.digits,
+	  RegisterValidator.equals(this.userPasswordFormControl)
+	]);
 
-		this.userNameFormControl = new FormControl('', [
-		Validators.required,
-		RegisterValidator.minMaxLength(this.minLengthUserName, this.maxLengthUserName)
-		]);
+	this.emailFormControl = new FormControl('', [
+	  Validators.required,
+	  RegisterValidator.email
+	]);
+  }
 
-		this.userPasswordFormControl = new FormControl('', [
-			Validators.required,
-			RegisterValidator.minMaxLength(this.minLengthPassword, this.maxLengthPassword),
-			RegisterValidator.lettersLowerCase,
-			RegisterValidator.lettersUpperCase,
-			RegisterValidator.digits
-		]);
+  /**
+   * Create form group
+   */
+  private createForm() {
+	this.registerForm = new FormGroup({
+	  userName: this.userNameFormControl,
+	  email: this.emailFormControl,
+	  password: this.userPasswordFormControl,
+	  passwordConfirm: this.userPasswordConfirmFormControl
+    })
+  }
 
-		this.userPasswordConfirmFormControl = new FormControl('', [
-			Validators.required,
-			RegisterValidator.minMaxLength(this.minLengthPassword, this.maxLengthPassword),
-			RegisterValidator.lettersLowerCase,
-			RegisterValidator.lettersUpperCase,
-			RegisterValidator.digits,
-			RegisterValidator.equals(this.userPasswordFormControl)
-		]);
+  /**
+   * Check active error
+   * @param {FormControl} control   
+   * @param {string}      errorCode
+   */
+  isErrorActive(control: FormControl, errorCode: string) {
+	return RegisterValidator.isErrorActive(control, errorCode);
+  }
 
-		this.emailFormControl = new FormControl('', [
-			Validators.required,
-			RegisterValidator.email
-		]);
-	}
-
-	private createForm() {
-
-		this.registerForm = new FormGroup({
-			userName: this.userNameFormControl,
-			email: this.emailFormControl,
-			password: this.userPasswordFormControl,
-			passwordConfirm: this.userPasswordConfirmFormControl
-		})
-	}
-
-	isErrorActive(control: FormControl, errorCode: string) {
-		return RegisterValidator.isErrorActive(control, errorCode);
-	}
-
-	onSubmit() {
-		console.log('sunmit test: ' + JSON.stringify(this.newUser));
-		this.isInProgress = true;
-		this.isResponseError = false;
-		this.registerService.sendUser(this.newUser)
-		.subscribe(
-			data => {
-				this.registered = true;
-				this.newUser = new User();
-			},
-			error => {
-				this.isInProgress = false;
-				this.isResponseError = true;
-				console.log(error)
-			}
-		)
-	}
+  /**
+   * Submit form
+   */
+  onSubmit() {
+	console.log('sunmit test: ' + JSON.stringify(this.newUser));
+	this.isInProgress = true;
+	this.isResponseError = false;
+	this.registerService.sendUser(this.newUser)
+	  .subscribe(
+	    data => {
+			this.registered = true;
+			this.newUser = new User();
+		},
+		error => {
+			this.isInProgress = false;
+			this.isResponseError = true;
+			console.log(error)
+	    }
+	  )
+  }
 }
 
+/**
+ * Class for check errors on the registration form
+ */
 export class RegisterFormErrorStateMatcher implements ErrorStateMatcher {
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

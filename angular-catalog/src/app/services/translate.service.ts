@@ -9,6 +9,9 @@ export class TranslateService {
 
   private static currentLanguage;
 
+  /**
+   * Get current locale
+   */
   static getLocale() {
     const supportLanguages: string[] = this.getLanguages();
     this.currentLanguage = localStorage.getItem('language');
@@ -24,15 +27,25 @@ export class TranslateService {
     return this.currentLanguage;
   }
 
+  /**
+   * Set current locale
+   * @param {string} locale
+   */
   static setLocale(locale: string) {
     this.currentLanguage = locale;
     localStorage.setItem('language', locale);
   }
 
+  /**
+   * Get default locale
+   */
   static getDefaultLocale() {
     return TranslateService.DEFAULT_LOCALE;
   }
 
+  /**
+   * Get all supported languages
+   */
   static getLanguages() {
     return this.languages;
   }

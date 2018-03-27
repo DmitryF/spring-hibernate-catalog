@@ -10,30 +10,37 @@ import {TranslateService} from '../../services';
 })
 export class NavBarComponent implements OnInit{
 
-	selectedLanguage;
+  selectedLanguage;
 
-	languages: string[];
+  languages: string[];  
 
-	public getLoginService() {
-		return this.loginService;
-	}
-
-	constructor (private loginService: LoginService) {
-	  this.languages = TranslateService.getLanguages();
-	}
-
-  onLanguageChange(event: any) {
-	  TranslateService.setLocale(this.selectedLanguage);
-	  window.location.reload();
+  constructor (private loginService: LoginService) {
+    this.languages = TranslateService.getLanguages();
   }
 
   ngOnInit(): void {
     this.selectedLanguage = TranslateService.getLocale();
   }
 
-	logout() {
-		if (this.loginService.isLogined()){
-			this.loginService.logout();
-		}
+  public getLoginService() {
+    return this.loginService;
+  }
+
+  /**
+   * Change language listener
+   * @param {any} event
+   */
+  onLanguageChange(event: any) {
+	  TranslateService.setLocale(this.selectedLanguage);
+	  window.location.reload();
+  }
+
+  /**
+   * Logout
+   */
+  logout() {
+	if (this.loginService.isLogined()){
+		this.loginService.logout();
 	}
+  }
 }

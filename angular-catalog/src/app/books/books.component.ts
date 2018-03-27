@@ -27,10 +27,17 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.createGenreSubscriber();
+  }
+
+  /**
+   * Create subscriber for genre changing
+   */
+  private createGenreSubscriber(): void {
     this.subscriberGenre = this.activateRouter.params.subscribe(params => {
       this.currentGenre = params['genre'];      
       if (this.currentGenre === 'all') {
-        this.bookService.getBooks().subscribe(data => {
+        this.bookService.getAllBooks().subscribe(data => {
           if (data) {
             this.books = JSON.parse(JSON.stringify(data));
           }
@@ -44,5 +51,4 @@ export class BooksComponent implements OnInit {
       }
     });
   }
-
 }

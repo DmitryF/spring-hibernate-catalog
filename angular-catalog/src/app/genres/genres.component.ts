@@ -16,7 +16,7 @@ export class GenresComponent implements OnInit {
   genres: Genre[];
 
   constructor(private bookService: BookService) {
-    bookService.getGenres().subscribe(data => {
+    bookService.getAllGenres().subscribe(data => {
       if (data) {
         this.genres = JSON.parse(JSON.stringify(data));
       }
@@ -26,6 +26,10 @@ export class GenresComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Change selected genre
+   * @param {string} genre
+   */
   onGenreClick(genre: string) {    
     this.bookService.selectGenre(genre);
   }

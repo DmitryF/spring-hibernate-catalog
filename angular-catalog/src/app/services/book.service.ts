@@ -16,19 +16,33 @@ export class BookService {
     private config: ConfigService
   ) { }
 
-  getBooks() {
-    return this.apiService.get(this.config.books_url);
+  /**
+   * Get all books
+   */
+  getAllBooks() {
+    return this.apiService.get(this.config.books_all_url);
   }
 
+  /**
+   * Select genre
+   * @param {string} genre
+   */
   selectGenre(genre: string) {
     this.genreChangeSource.next(genre);
   }
 
+  /**
+   * Get book by genre
+   * @param {string} genre
+   */
   getBooksByGenre(genre: string) {
     return this.apiService.get(this.config.books_by_genre_url + genre);
   }
 
-  getGenres() {
-    return this.apiService.get(this.config.genres_book_url);
+  /**
+   * Get all genres
+   */
+  getAllGenres() {
+    return this.apiService.get(this.config.genres_all_url);
   }
 }
